@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Moab 2026">
+<meta name="theme-color" content="#1a1a1a">
+<title>Moab Trail Marathon 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #1D9E75;
+  --teal-light: #d0f0e4;
+  --teal-dark: #0e5a41;
+  --coral: #D85A30;
+  --coral-light: #fbe8e0;
+  --amber: #D4920A;
+  --amber-light: #fdf0d0;
+  --purple: #6B5BD6;
+  --purple-light: #eceafc;
+  --sand: #f5f0e8;
+  --sand-dark: #e8e0d0;
+  --ink: #1a1a1a;
+  --ink-mid: #444;
+  --ink-light: #888;
+  --white: #ffffff;
+  --card-bg: #ffffff;
+  --page-bg: #f5f0e8;
+  --border: rgba(0,0,0,0.10);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --font-display: 'DM Serif Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  height: 100%;
+  font-family: var(--font-body);
+  background: var(--page-bg);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* ── APP SHELL ── */
+#app { min-height: 100vh; padding-bottom: 40px; }
+
+/* ── HEADER ── */
+.app-header {
+  background: var(--ink);
+  color: white;
+  padding: 52px 20px 24px;
+  position: relative;
+  overflow: hidden;
+}
+.app-header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -40px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(29,158,117,0.15);
+}
+.app-header::after {
+  content: '';
+  position: absolute;
+  bottom: -30px; left: 30px;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: rgba(216,90,48,0.12);
+}
+.header-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 6px;
+  position: relative; z-index: 1;
+}
+.header-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 1.15;
+  color: white;
+  position: relative; z-index: 1;
+}
+.header-title em { color: var(--teal); font-style: italic; }
+.header-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 8px;
+  position: relative; z-index: 1;
+}
+.phase-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.75);
+  margin-top: 12px;
+  position: relative; z-index: 1;
+}
+.phase-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+
+/* ── SECTION NAV ── */
+.section-nav {
+  display: flex;
+  gap: 0;
+  background: var(--ink);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.section-nav::-webkit-scrollbar { display: none; }
+.snav-btn {
+  flex-shrink: 0;
+  padding: 12px 18px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.4);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  letter-spacing: .04em;
+  transition: all .2s;
+  white-space: nowrap;
+}
+.snav-btn.active {
+  color: white;
+  border-bottom-color: var(--teal);
+}
+
+/* ── SECTION ── */
+.section { display: none; padding: 16px; }
+.section.active { display: block; }
+
+/* ── WEEK NAVIGATION ── */
+.week-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.week-nav-btn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  font-size: 18px;
+  color: var(--ink-mid);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+}
+.week-nav-btn:active { background: var(--sand-dark); transform: scale(.95); }
+.week-label {
+  text-align: center;
+  flex: 1;
+}
+.week-label-top {
+  font-size: 11px;
+  color: var(--ink-light);
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+.week-label-main {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--ink);
+}
+
+/* ── TODAY CARD ── */
+.today-banner {
+  background: var(--ink);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.today-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.today-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,0.45); }
+.today-name { font-size: 15px; font-weight: 600; color: white; }
+.today-detail { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 1px; }
+
+/* ── DAY CARDS ── */
+.day-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  transition: box-shadow .2s;
+}
+.day-card.is-today { border-color: var(--teal); border-width: 2px; }
+.day-card.logged { opacity: 0.72; }
+
+.day-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  cursor: pointer;
+}
+.day-dot-wrap {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 16px;
+}
+.day-info { flex: 1; min-width: 0; }
+.day-name-row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.day-name { font-size: 11px; font-weight: 600; color: var(--ink-light); text-transform: uppercase; letter-spacing: .07em; }
+.day-date { font-size: 10px; color: var(--ink-light); }
+.day-title { font-size: 14px; font-weight: 600; color: var(--ink); margin-top: 1px; }
+.day-sub { font-size: 12px; color: var(--ink-light); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.day-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+.log-btn {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border);
+  background: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  transition: all .15s;
+}
+.log-btn.done { background: var(--teal); border-color: var(--teal); }
+.log-btn.done::after { content: '✓'; font-size: 13px; color: white; font-weight: 700; }
+.log-btn:not(.done)::after { content: '○'; color: var(--ink-light); font-size: 16px; }
+.log-btn:active { transform: scale(.9); }
+
+.delete-btn {
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  color: var(--ink-light);
+  transition: all .15s;
+  display: none;
+}
+.delete-btn.visible { display: flex; }
+.delete-btn:active { color: var(--coral); transform: scale(.9); }
+
+.chevron {
+  font-size: 12px;
+  color: var(--ink-light);
+  transition: transform .2s;
+  flex-shrink: 0;
+}
+.day-card.open .chevron { transform: rotate(180deg); }
+
+/* ── DAY DETAIL ── */
+.day-detail-panel {
+  display: none;
+  border-top: 1px solid var(--border);
+  background: var(--sand);
+}
+.day-card.open .day-detail-panel { display: block; }
+
+.detail-section { padding: 14px 14px 4px; }
+.detail-section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 8px;
+}
+.superset-block {
+  background: var(--card-bg);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+.superset-header {
+  padding: 6px 10px;
+  background: var(--sand-dark);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--ink-light);
+  border-bottom: 1px solid var(--border);
+}
+.exercise-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+}
+.exercise-row:last-child { border-bottom: none; }
+.ex-name { font-size: 13px; color: var(--ink); font-weight: 500; }
+.ex-note { font-size: 11px; color: var(--ink-light); margin-top: 2px; }
+.ex-sets { font-size: 12px; color: var(--ink-mid); white-space: nowrap; padding-left: 8px; flex-shrink: 0; font-weight: 500; }
+
+.run-detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.run-detail-row:last-child { border-bottom: none; }
+.rdl { color: var(--ink-mid); }
+.rdr { color: var(--ink); font-weight: 500; text-align: right; padding-left: 8px; }
+
+.log-note-area {
+  padding: 10px 14px 14px;
+}
+.log-note-area textarea {
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink);
+  resize: none;
+  min-height: 70px;
+  outline: none;
+}
+.log-note-area textarea::placeholder { color: var(--ink-light); }
+.log-note-area textarea:focus { border-color: var(--teal); }
+.save-note-btn {
+  margin-top: 8px;
+  width: 100%;
+  padding: 10px;
+  background: var(--teal);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .15s;
+}
+.save-note-btn:active { background: var(--teal-dark); transform: scale(.98); }
+
+/* ── TYPE COLORS ── */
+.type-run   { background: #e0f5ec; }
+.type-run .day-title { color: var(--teal-dark); }
+.dot-run   { background: var(--teal); }
+
+.type-gym   { background: var(--purple-light); }
+.type-gym .day-title { color: #3d2fa0; }
+.dot-gym   { background: var(--purple); }
+
+.type-yoga  { background: var(--coral-light); }
+.type-yoga .day-title { color: #7a2e14; }
+.dot-yoga  { background: var(--coral); }
+
+.type-race  { background: var(--amber-light); }
+.type-race .day-title { color: #7a4d00; }
+.dot-race  { background: var(--amber); }
+
+.type-rest  { background: var(--sand); }
+.type-rest .day-title { color: var(--ink-light); }
+.dot-rest  { background: var(--sand-dark); border: 1.5px solid var(--border); }
+
+/* ── RACE CALENDAR (overview) ── */
+.race-list { display: flex; flex-direction: column; gap: 8px; }
+.race-item {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 13px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.race-item.a-race { border-color: var(--coral); border-width: 2px; }
+.race-item.b-race { border-color: var(--amber); border-width: 1.5px; }
+.race-dot-lg {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+.race-date-col { min-width: 72px; flex-shrink: 0; }
+.race-date-main { font-size: 12px; font-weight: 600; color: var(--ink-mid); }
+.race-date-day { font-size: 10px; color: var(--ink-light); }
+.race-name { font-size: 14px; font-weight: 600; color: var(--ink); }
+.race-sub { font-size: 12px; color: var(--ink-light); margin-top: 2px; }
+.race-note-text { font-size: 11px; color: var(--ink-light); margin-top: 3px; font-style: italic; }
+
+.race-section-header {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  padding: 16px 0 6px;
+}
+
+/* ── GYM REFERENCE ── */
+.gym-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.gym-card-header {
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  cursor: pointer;
+  background: var(--card-bg);
+}
+.gym-card-header:active { background: var(--sand); }
+.gym-card-title { font-size: 15px; font-weight: 600; color: var(--ink); }
+.gym-card-sub { font-size: 12px; color: var(--ink-light); margin-top: 3px; }
+.gym-card-body { display: none; border-top: 1px solid var(--border); }
+.gym-card.open .gym-card-body { display: block; }
+.gym-card.open .gym-chevron { transform: rotate(180deg); }
+.gym-chevron { font-size: 12px; color: var(--ink-light); transition: transform .2s; margin-top: 4px; }
+
+.gym-block-label {
+  font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-light); padding: 12px 14px 6px;
+}
+
+/* ── YOGA ── */
+.yoga-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.yoga-card-header {
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  cursor: pointer;
+}
+.yoga-card-header:active { background: var(--sand); }
+.yoga-card-title { font-size: 15px; font-weight: 600; color: var(--ink); }
+.yoga-card-sub { font-size: 12px; color: var(--ink-light); margin-top: 3px; }
+.yoga-card-body { display: none; border-top: 1px solid var(--border); }
+.yoga-card.open .yoga-card-body { display: block; }
+.yoga-card.open .yoga-chevron { transform: rotate(180deg); }
+.yoga-chevron { font-size: 12px; color: var(--ink-light); transition: transform .2s; margin-top: 4px; }
+.yoga-pose-row {
+  display: flex; justify-content: space-between;
+  padding: 9px 14px; border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.yoga-pose-row:last-child { border-bottom: none; }
+.pose-name { color: var(--ink); font-weight: 500; }
+.pose-note { font-size: 11px; color: var(--ink-light); margin-top: 2px; }
+.pose-dur { color: var(--ink-mid); white-space: nowrap; padding-left: 8px; font-weight: 500; font-size: 12px; }
+
+/* ── INFO CARDS (phase banners, run guide) ── */
+.info-card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 14px;
+  margin-bottom: 10px;
+}
+.info-card h3 { font-family: var(--font-display); font-size: 17px; color: var(--ink); margin-bottom: 5px; }
+.info-card p { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+.badge {
+  display: inline-block; font-size: 10px; font-weight: 600;
+  padding: 2px 8px; border-radius: 20px; margin: 4px 4px 0 0;
+}
+.badge-teal { background: var(--teal-light); color: var(--teal-dark); }
+.badge-coral { background: var(--coral-light); color: #7a2e14; }
+.badge-purple { background: var(--purple-light); color: #3d2fa0; }
+.badge-gray { background: var(--sand-dark); color: var(--ink-mid); }
+.badge-amber { background: var(--amber-light); color: #7a4d00; }
+
+.hr-zone-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); }
+.hr-zone-row:last-child { border-bottom: none; }
+.zone-label { font-size: 12px; color: var(--ink-mid); min-width: 28px; }
+.zone-bar-wrap { flex: 1; height: 5px; background: var(--sand-dark); border-radius: 3px; overflow: hidden; }
+.zone-bar { height: 100%; border-radius: 3px; }
+.zone-bpm { font-size: 11px; color: var(--ink-light); min-width: 90px; text-align: right; }
+
+.downhill-tip { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+.downhill-tip:last-child { border-bottom: none; }
+.tip-bullet { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.tip-body { flex: 1; }
+.tip-title { font-size: 13px; font-weight: 600; color: var(--ink); }
+.tip-desc { font-size: 12px; color: var(--ink-light); margin-top: 2px; line-height: 1.5; }
+
+/* ── SECTION TITLES ── */
+.sec-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+.sec-sub { font-size: 13px; color: var(--ink-light); margin-top: -10px; margin-bottom: 14px; }
+
+/* ── LOGGED NOTE DISPLAY ── */
+.logged-note-display {
+  background: var(--teal-light);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  margin: 0 14px 12px;
+  font-size: 12px;
+  color: var(--teal-dark);
+  display: none;
+}
+.logged-note-display.has-note { display: block; }
+.logged-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 3px; }
+
+/* ── PROGRESS BAR ── */
+.progress-wrap {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 14px;
+  margin-bottom: 12px;
+}
+.progress-title { font-size: 12px; font-weight: 600; color: var(--ink-light); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 10px; }
+.progress-bar-bg { height: 6px; background: var(--sand-dark); border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
+.progress-bar-fill { height: 100%; background: var(--teal); border-radius: 3px; transition: width .4s ease; }
+.progress-stats { display: flex; justify-content: space-between; font-size: 11px; color: var(--ink-light); }
+.progress-num { font-family: var(--font-display); font-size: 20px; color: var(--teal); }
+
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div class="app-header">
+    <div class="header-eyebrow">Training Plan · 2026</div>
+    <div class="header-title">Moab Trail<br><em>Marathon</em></div>
+    <div class="header-sub">Hannah · November 2026</div>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:12px;position:relative;z-index:1;flex-wrap:wrap">
+      <div class="phase-pill" id="current-phase-pill" style="margin-top:0">
+        <div class="phase-dot"></div>
+        <span id="phase-pill-text">Loading...</span>
+      </div>
+      <div id="sync-badge" style="font-size:10px;font-weight:600;letter-spacing:.06em;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.8);transition:background .4s">⟳ syncing</div>
+    </div>
+  </div>
+
+  <div class="section-nav">
+    <button class="snav-btn active" onclick="showSection('schedule',this)">Schedule</button>
+    <button class="snav-btn" onclick="showSection('races',this)">Races</button>
+    <button class="snav-btn" onclick="showSection('gym',this)">Gym</button>
+    <button class="snav-btn" onclick="showSection('yoga',this)">Yoga</button>
+    <button class="snav-btn" onclick="showSection('running',this)">Running</button>
+    <button class="snav-btn" onclick="showSection('overview',this)">Plan</button>
+  </div>
+
+  <!-- SCHEDULE -->
+  <div id="sec-schedule" class="section active">
+    <div class="week-nav">
+      <button class="week-nav-btn" onclick="changeWeek(-1)">‹</button>
+      <div class="week-label">
+        <div class="week-label-top" id="wk-phase">Phase 1</div>
+        <div class="week-label-main" id="wk-label">Week 1</div>
+      </div>
+      <button class="week-nav-btn" onclick="changeWeek(1)">›</button>
+    </div>
+    <div id="week-days"></div>
+  </div>
+
+  <!-- RACES -->
+  <div id="sec-races" class="section">
+    <div class="sec-title">Race Calendar</div>
+    <div class="race-list" id="race-list"></div>
+  </div>
+
+  <!-- GYM -->
+  <div id="sec-gym" class="section">
+    <div class="sec-title">Gym Workouts</div>
+    <div class="sec-sub">35–40 min · no wrist weight bearing · Tue &amp; Fri</div>
+    <div id="gym-content"></div>
+  </div>
+
+  <!-- YOGA -->
+  <div id="sec-yoga" class="section">
+    <div class="sec-title">Yoga</div>
+    <div class="sec-sub">Monday · 45 min · alternating A / B each week</div>
+    <div id="yoga-content"></div>
+  </div>
+
+  <!-- RUNNING -->
+  <div id="sec-running" class="section">
+    <div class="sec-title">Running Guide</div>
+    <div id="running-content"></div>
+  </div>
+
+  <!-- OVERVIEW / PLAN -->
+  <div id="sec-overview" class="section">
+    <div class="sec-title">The Plan</div>
+    <div id="overview-content"></div>
+  </div>
+
+</div>
+
+<!-- Firebase SDKs — must load before main script -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+// ─────────────────────────────────────────────
+
+// Plan start date: Mon Apr 6 2026
+const PLAN_START = new Date(2026, 3, 6); // Apr 6
+
+const WEEKS = [
+  // PHASE 1 ──────────────────────────────────────────────────────────
+  { phase: 'Phase 1 — Foundation', label: 'Week of Apr 6', miles: '~14 mi', days: [
+    { d:'Mon', name:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body · 45 min', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', name:'Tue', title:'Gym A', sub:'Glute med, core & ankle · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', name:'Wed', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+    { d:'Thu', name:'Thu', title:'Hill Workout', sub:'6 × 60s hill reps · 45 min', type:'run', emoji:'🏃', detail: { type:'run', run:'hill', phase:1 } },
+    { d:'Fri', name:'Fri', title:'Gym B', sub:'Downhill strength · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', name:'Sat', title:'Long Run', sub:'8 mi · Z1–Z2 · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:1, notes:'8 mi · Z1–Z2 · trail' } },
+    { d:'Sun', name:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 1 — Foundation', label: 'Week of Apr 13', miles: '~16 mi', days: [
+    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic · 45 min', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
+    { d:'Tue', title:'Gym B', sub:'Downhill strength · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Wed', title:'Easy Run', sub:'4 mi · Z1–Z2 · flat trail', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:1, notes:'4 mi · Z1–Z2' } },
+    { d:'Thu', title:'Hill Workout', sub:'8 × 60s hill reps · 50 min', type:'run', emoji:'🏃', detail: { type:'run', run:'hill', phase:1 } },
+    { d:'Fri', title:'Gym A', sub:'Glute med, core & ankle · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Sat', title:'Long Run', sub:'9 mi · Z1–Z2 · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:1, notes:'9 mi · Z1–Z2 · trail' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 1 — Foundation', label: 'Week of Apr 20 · Eagle Mtn Apr 22', miles: '~16 mi', days: [
+    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Eagle Mountain', sub:'Wasatch #1 · Apr 22 · controlled effort', type:'race', emoji:'🏅', detail: { type:'race', name:'Eagle Mountain', notes:'Wasatch #1 · controlled effort, not all-out' } },
+    { d:'Thu', title:'Easy Run', sub:'3–4 mi easy · absorb Wednesday', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:1, notes:'3–4 mi easy · recovery after race' } },
+    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'10 mi · trail · pull back if heavy', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:1, notes:'10 mi · pull back 1 mi if legs heavy from Wed' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 1 — Foundation', label: 'Week of Apr 27 · Dimple Dell Apr 29', miles: '~16 mi', days: [
+    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
+    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Dimple Dell', sub:'Wasatch #2 · Apr 29', type:'race', emoji:'🏅', detail: { type:'race', name:'Dimple Dell', notes:'Wasatch #2 · workout run replacement' } },
+    { d:'Thu', title:'Easy Run', sub:'3–4 mi easy · absorb Wednesday', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:1, notes:'3–4 mi easy' } },
+    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'10–11 mi · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:1, notes:'10–11 mi · trail' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 1 — Foundation', label: 'Week of May 4 · Soldier Hollow May 13', miles: 'Race prep', days: [
+    { d:'Mon', title:'Yoga A', sub:'Short hip sequence · 30 min', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', title:'Gym A', sub:'Light only · 25 min · no finisher', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Rest', sub:'Off feet · pre-race week', type:'rest', emoji:'😴', detail: null },
+    { d:'Thu', title:'Easy Run', sub:'3 mi easy + 4 strides', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:1, notes:'3 mi easy + 4 strides · shakeout' } },
+    { d:'Fri', title:'Rest', sub:'Off feet', type:'rest', emoji:'😴', detail: null },
+    { d:'Sat', title:'Rest', sub:'Off feet · hydrate · sleep', type:'rest', emoji:'😴', detail: null },
+    { d:'Sun', title:'Rest', sub:'Final rest before race week', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 1 — Foundation', label: 'Week of May 11 · Soldier Hollow + Half', miles: 'RACE WEEK', days: [
+    { d:'Mon', title:'Yoga A', sub:'Short restorative · 30 min', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', title:'Gym A', sub:'Very light · 20 min only', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Soldier Hollow', sub:'Wasatch #3 · May 13 · controlled effort', type:'race', emoji:'🏅', detail: { type:'race', name:'Soldier Hollow', notes:'Wasatch #3 · CONTROLLED — half marathon is Saturday. Do not race this all-out.' } },
+    { d:'Thu', title:'Rest', sub:'Legs up the wall · gentle mobility only', type:'rest', emoji:'😴', detail: null },
+    { d:'Fri', title:'Rest', sub:'Full rest · off feet', type:'rest', emoji:'😴', detail: null },
+    { d:'Sat', title:'HALF MARATHON', sub:'May 16 · B Race · go get it', type:'race', emoji:'🎯', detail: { type:'race', name:'Half Trail Marathon', notes:'B Race · fitness benchmark · race this one fully!' } },
+    { d:'Sun', title:'Rest', sub:'Full rest · celebrate!', type:'rest', emoji:'😴', detail: null },
+  ]},
+
+  // PHASE 2 ──────────────────────────────────────────────────────────
+  { phase: 'Phase 2 — Build', label: 'Post-Half Recovery', miles: '~10 mi', days: [
+    { d:'Mon', title:'Yoga B', sub:'Full body restorative · 45 min', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
+    { d:'Tue', title:'Rest or Walk', sub:'No gym · feel it out', type:'rest', emoji:'😴', detail: null },
+    { d:'Wed', title:'Easy Run', sub:'3–4 mi · very easy · Z1', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi very easy · Z1' } },
+    { d:'Thu', title:'Easy Run', sub:'4 mi easy · no workout', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'4 mi easy' } },
+    { d:'Fri', title:'Gym B', sub:'Light · no plyos · 30 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'8–9 mi · easy Z1–Z2', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'8–9 mi · easy Z1–Z2 · recovery long run' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 2 — Build', label: 'Rebuild · Week of May 18', miles: '~18 mi', days: [
+    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', title:'Gym A', sub:'Full session · begin adding load', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Easy Run', sub:'5 mi · Z1–Z2', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'5 mi · Z1–Z2' } },
+    { d:'Thu', title:'Hill Workout', sub:'8 × 90s hill reps · Phase 2', type:'run', emoji:'🏃', detail: { type:'run', run:'hill', phase:2 } },
+    { d:'Fri', title:'Gym B', sub:'Begin adding plyos · 40 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'12 mi · trail · descent work', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'12 mi · trail · include descent practice' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 2 — Build', label: 'Dimple Dell #2 · Jun 3', miles: '~19 mi', days: [
+    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
+    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Dimple Dell #2', sub:'Wasatch #5 · Jun 3', type:'race', emoji:'🏅', detail: { type:'race', name:'Dimple Dell #2', notes:'Wasatch #5 · workout run replacement' } },
+    { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy · absorb Wednesday', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy or rest' } },
+    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'12–13 mi · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'12–13 mi · pull back 1–2 mi if heavy' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 2 — Build', label: 'TBD Race · Jun 10', miles: '~19 mi', days: [
+    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'TBD Race', sub:'Wasatch #6 · Jun 10', type:'race', emoji:'🏅', detail: { type:'race', name:'TBD', notes:'Wasatch #6 · Jun 10 · workout run replacement' } },
+    { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy' } },
+    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'13 mi · trail · practice descent', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'13 mi · trail · practice descent sections' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 2 — Build', label: 'Build · Week of Jun 15', miles: '~21 mi', days: [
+    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
+    { d:'Tue', title:'Gym A', sub:'Full · plyo progression · 40 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Easy Run', sub:'5–6 mi · Z1–Z2', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'5–6 mi · Z1–Z2' } },
+    { d:'Thu', title:'Tempo Run', sub:'2 × 12 min Z3 · 30–35 min total', type:'run', emoji:'🏃', detail: { type:'run', run:'tempo', phase:2 } },
+    { d:'Fri', title:'Gym B', sub:'Box jumps · landing drills · 40 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'14 mi · trail · descent work', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'14 mi · trail · maximize descent practice' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 2 — Build', label: 'Solitude · Jun 24', miles: '~20 mi', days: [
+    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Solitude', sub:'Wasatch #7 · Jun 24', type:'race', emoji:'🏅', detail: { type:'race', name:'Solitude', notes:'Wasatch #7 · workout run replacement' } },
+    { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy' } },
+    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'13–14 mi · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'13–14 mi · trail' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 2 — Build', label: 'Alta · Jul 8', miles: '~20 mi', days: [
+    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
+    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Alta', sub:'Wasatch #8 · Jul 8 · high vert', type:'race', emoji:'🏅', detail: { type:'race', name:'Alta', notes:'Wasatch #8 · high vert · excellent Moab prep' } },
+    { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy · legs may be heavy from Alta', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy — Alta has big vert, take it easy' } },
+    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'14–15 mi · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'14–15 mi · trail' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 2 — Build', label: 'Snowbird · Jul 15', miles: '~19 mi', days: [
+    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Snowbird', sub:'Wasatch #9 · Jul 15 · back-to-back with Alta', type:'race', emoji:'🏅', detail: { type:'race', name:'Snowbird', notes:'Wasatch #9 · back-to-back with Alta week — keep effort controlled' } },
+    { d:'Thu', title:'Rest', sub:'Full rest · back-to-back race weeks', type:'rest', emoji:'😴', detail: null },
+    { d:'Fri', title:'Gym B', sub:'Light only · 30 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'14 mi · pull back if fatigued', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'14 mi · pull back if two race weeks are showing' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 2 — Build', label: 'Build · Week of Jul 20', miles: '~22 mi', days: [
+    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
+    { d:'Tue', title:'Gym A', sub:'Full · heavy eccentric · 40 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Easy Run', sub:'5–6 mi · Z1–Z2', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'5–6 mi · Z1–Z2' } },
+    { d:'Thu', title:'Workout Run', sub:'Intervals or downhill-specific · 55 min', type:'run', emoji:'🏃', detail: { type:'run', run:'interval', phase:2 } },
+    { d:'Fri', title:'Gym B', sub:'Power + plyos · 40 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'15–16 mi · trail · vert', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'15–16 mi · trail · vert · descent work' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 2 — Build', label: 'Brighton · Jul 29', miles: '~20 mi', days: [
+    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Brighton', sub:'Wasatch #10 · Jul 29', type:'race', emoji:'🏅', detail: { type:'race', name:'Brighton', notes:'Wasatch #10 · workout run replacement' } },
+    { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy' } },
+    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'15 mi · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'15 mi · trail' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 2 — Build', label: 'Alta #2 · Aug 5', miles: '~20 mi', days: [
+    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
+    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Alta #2', sub:'Wasatch #11 · Aug 5', type:'race', emoji:'🏅', detail: { type:'race', name:'Alta #2', notes:'Wasatch #11 · workout run replacement' } },
+    { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy' } },
+    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'15–16 mi · trail · peak Phase 2', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'15–16 mi · trail · peak Phase 2 long run' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 2 — Build', label: 'Final Build · Aug 10', miles: '~22 mi', days: [
+    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', title:'Gym A', sub:'Full · strength peak · 40 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Easy Run', sub:'6 mi · Z1–Z2', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'6 mi · Z1–Z2' } },
+    { d:'Thu', title:'Workout Run', sub:'Downhill-focus + tempo · 45 min', type:'run', emoji:'🏃', detail: { type:'run', run:'tempo', phase:2 } },
+    { d:'Fri', title:'Gym B', sub:'Power + plyos · 40 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'16 mi · max descent practice', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'16 mi · trail · maximize descent practice' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 2 — Build', label: 'Snowbird #2 · Aug 19', miles: '~20 mi', days: [
+    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
+    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Snowbird #2', sub:'Wasatch #12 · Aug 19 · final series race', type:'race', emoji:'🏅', detail: { type:'race', name:'Snowbird #2', notes:'Wasatch #12 · final series race · begin peak block transition' } },
+    { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy · peak block starts soon', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy' } },
+    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'15 mi · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'15 mi · trail' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+
+  // PHASE 3 ──────────────────────────────────────────────────────────
+  { phase: 'Phase 3 — Peak', label: 'Peak Entry · Aug 24', miles: '~22 mi', days: [
+    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', title:'Gym A', sub:'Strength maintenance · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Easy Run', sub:'6–7 mi · Z1–Z2', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:3, notes:'6–7 mi · Z1–Z2' } },
+    { d:'Thu', title:'Workout Run', sub:'Downhill-focus + tempo · 45 min', type:'run', emoji:'🏃', detail: { type:'run', run:'tempo', phase:3 } },
+    { d:'Fri', title:'Gym B', sub:'Eccentric strength · maintain · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'18 mi · max descent practice', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:3, notes:'18 mi · trail · maximize descent practice' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 3 — Peak', label: 'Peak · Week of Sep', miles: '~24–26 mi', days: [
+    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
+    { d:'Tue', title:'Gym A', sub:'Strength maintenance · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Easy Run', sub:'6–7 mi · Z1–Z2', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:3, notes:'6–7 mi · Z1–Z2' } },
+    { d:'Thu', title:'Workout Run', sub:'Downhill-focus or long tempo · 45 min', type:'run', emoji:'🏃', detail: { type:'run', run:'tempo', phase:3 } },
+    { d:'Fri', title:'Gym B', sub:'Maintain · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'20–22 mi · or B2B 12+10 · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:3, notes:'20–22 mi · or B2B 12+10 · trail' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 3 — Taper', label: 'Taper Week 3 · 3 Wks to Moab', miles: '~18 mi', days: [
+    { d:'Mon', title:'Yoga A', sub:'Hip and lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', title:'Gym A', sub:'Reduce to 2 sets · 30 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Easy Run', sub:'5 mi · Z1–Z2', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:3, notes:'5 mi · Z1–Z2' } },
+    { d:'Thu', title:'Tempo Run', sub:'18–20 min continuous Z3 · 30 min total', type:'run', emoji:'🏃', detail: { type:'run', run:'tempo', phase:3 } },
+    { d:'Fri', title:'Gym B', sub:'Light · no heavy eccentric · 25 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'14–15 mi · easy', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:3, notes:'14–15 mi · easy · begin taper' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 3 — Taper', label: 'Taper Week 2 · 2 Wks to Moab', miles: '~12 mi', days: [
+    { d:'Mon', title:'Yoga B', sub:'Restorative + legs up the wall', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
+    { d:'Tue', title:'Gym A', sub:'Very light · 25 min · tune-up only', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Easy Run', sub:'4 mi · Z1–Z2', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:3, notes:'4 mi · Z1–Z2' } },
+    { d:'Thu', title:'Easy Run', sub:'4 mi + 4 strides', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:3, notes:'4 mi + 4 strides' } },
+    { d:'Fri', title:'Rest', sub:'Rest', type:'rest', emoji:'😴', detail: null },
+    { d:'Sat', title:'Long Run', sub:'10 mi · easy trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:3, notes:'10 mi · easy trail' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  ]},
+  { phase: 'Phase 3 — Race Week', label: '🎯 MOAB RACE WEEK', miles: 'GO TIME', days: [
+    { d:'Mon', title:'Yoga A', sub:'Short hip sequence · 30 min', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', title:'Easy Run', sub:'3 mi + 4 strides · feel fresh', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:3, notes:'3 mi + 4 strides · just feel fresh' } },
+    { d:'Wed', title:'Rest', sub:'Off feet', type:'rest', emoji:'😴', detail: null },
+    { d:'Thu', title:'Shakeout', sub:'20 min easy + 4 strides', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:3, notes:'20 min easy + 4 strides · shakeout' } },
+    { d:'Fri', title:'Rest', sub:'Travel if needed · off feet', type:'rest', emoji:'😴', detail: null },
+    { d:'Sat', title:'Rest', sub:'Hydrate · sleep early · gear check', type:'rest', emoji:'😴', detail: null },
+    { d:'Sun', title:'MOAB MARATHON', sub:'26.2 mi · race day · go get it 🔥', type:'race', emoji:'🔥', detail: { type:'race', name:'Moab Trail Marathon', notes:'A Race · 26.2 mi · everything you\'ve worked for. Go get it!' } },
+  ]},
+];
+
+const GYM_A = {
+  title: 'Workout A — Glute Med, Core & Ankle',
+  focus: 'Lateral hip · adductors · lower core · ankle proprioception',
+  blocks: [
+    { label: 'Warmup — Circuit × 1 (no rest)', exercises: [
+      { name: 'Single-leg balance — eyes open → closed', note: '30s each · progress to eyes closed week 3+', sets: '30s each' },
+      { name: 'Banded clamshells', note: 'Mini band above knees · slow and controlled', sets: '15 each' },
+      { name: 'Ankle alphabet', note: 'Seated · draw A–Z with each foot', sets: '1× each' },
+    ]},
+    { label: 'Block 1 — Hip Strength · Superset A · 3 rounds · rest 60s', exercises: [
+      { name: 'Single-leg KB deadlift', note: 'Fist-grip KB at side · slow lower · drive through heel', sets: '8 each' },
+      { name: 'Lateral band walk + squat', note: '10 steps each way then 5 squats · band above knees', sets: '1 round' },
+    ]},
+    { label: 'Block 2 — Adductors & Lateral Hip · Superset B · 3 rounds · rest 60s', exercises: [
+      { name: 'Cable hip abduction (standing)', note: 'Full ROM · controlled return · light–moderate load', sets: '12 each' },
+      { name: 'Copenhagen adductor hold', note: 'Side plank on elbow · top leg on bench · isometric', sets: '20–30s each' },
+    ]},
+    { label: 'Block 3 — Core & Shoulders · Superset C · 3 rounds · rest 60s', exercises: [
+      { name: 'Pallof press (cable)', note: 'Half-kneeling · anti-rotation · fist on handle', sets: '10 each' },
+      { name: 'Half-kneeling KB shoulder press', note: 'Neutral grip · one arm · tall spine', sets: '10 each' },
+      { name: 'Dead bug', note: 'Fists vertical · no wrist extension · opposite arm/leg', sets: '8 each' },
+    ]},
+    { label: 'Ankle Finisher — Circuit × 2 (straight through)', exercises: [
+      { name: 'Single-leg calf raise — slow eccentric', note: 'Up on two · lower on one over 3–4 sec · add load Phase 2+', sets: '12 each' },
+      { name: 'Banded ankle eversion', note: 'Band around forefoot · resist inversion return · peroneals', sets: '15 each' },
+    ]},
+  ]
+};
+
+const GYM_B = {
+  title: 'Workout B — Downhill, Power & Shoulders',
+  focus: 'Eccentric quads · plyos · single-leg landing · arms',
+  blocks: [
+    { label: 'Warmup — Circuit × 1 (no rest)', exercises: [
+      { name: 'Hip CARs', note: 'Slow controlled circles each direction · standing', sets: '5 each way' },
+      { name: 'Toe-heel walk', note: '10 steps on toes · 10 on heels · peroneals + tibialis', sets: '2 lengths' },
+      { name: 'Slow bodyweight lateral step-down', note: 'Feel the quad load · control the descent', sets: '6 each' },
+    ]},
+    { label: 'Block 1 — Eccentric Quad & Downhill · Superset A · 4 rounds · rest 75s', exercises: [
+      { name: 'Slow eccentric step-down (3–5 sec lower)', note: 'Step onto box · lower slowly · add KB at hips Phase 2+', sets: '8 each' },
+      { name: 'Lateral step-down with eccentric', note: 'Side of box · slow lower · mimics technical trail descent', sets: '8 each' },
+    ]},
+    { label: 'Block 2 — Single-Leg Power · Superset B · 3 rounds · rest 75s', exercises: [
+      { name: 'Bulgarian split squat (KB goblet hold)', note: 'KB at chest · rear foot elevated · neutral grip', sets: '10 each' },
+      { name: 'Box jump to single-leg stick landing', note: 'Land one foot · hold 2 sec · ankle + quad co-contraction', sets: '5 each' },
+    ]},
+    { label: 'Block 3 — Upper Body Pull & Shoulders · Superset C · 3 rounds · rest 60s', exercises: [
+      { name: 'Cable row (neutral grip handle)', note: 'Seated or half-kneeling · drive elbows back', sets: '12' },
+      { name: 'KB renegade row (on fists)', note: 'Fists on KBs · no flat-palm wrist load', sets: '8 each' },
+      { name: 'KB halo', note: 'Shoulder mobility + overhead stability', sets: '8 each way' },
+    ]},
+    { label: 'Ankle Finisher — Circuit × 3 (straight through)', exercises: [
+      { name: 'Single-leg balance on folded mat or BOSU', note: 'Unstable surface · progress to eyes closed Phase 2+', sets: '30s each' },
+      { name: 'Lateral hop — stick landing', note: 'Small lateral jump · land and hold 2 sec · no wobble', sets: '6 each' },
+    ]},
+  ]
+};
+
+const YOGA_A = {
+  title: 'Sequence A — Hip & Lower Body',
+  focus: 'Hip flexors · glutes · hamstrings · IT band',
+  poses: [
+    { name: 'Low lunge (anjaneyasana)', note: 'Hip flexor release · arms overhead', dur: '2 min each' },
+    { name: 'Lizard pose', note: 'Deep hip and adductor stretch', dur: '2 min each' },
+    { name: 'Pigeon pose', note: 'Glute med / piriformis release', dur: '3 min each' },
+    { name: 'Half-split (ardha hanumanasana)', note: 'Hamstring length · flex foot for calf', dur: '90s each' },
+    { name: 'Supine figure-4', note: 'Accessible pigeon · glute med release', dur: '2 min each' },
+    { name: 'Supine twist', note: 'IT band · glute · thoracic rotation', dur: '2 min each' },
+    { name: 'Legs up the wall', note: 'Recovery · hip decompression', dur: '5 min' },
+  ]
+};
+
+const YOGA_B = {
+  title: 'Sequence B — Upper Body & Thoracic',
+  focus: 'Shoulders · chest · upper back · arm swing',
+  poses: [
+    { name: 'Cat-cow', note: 'Spinal articulation · thoracic mobility', dur: '10 reps' },
+    { name: 'Thread the needle', note: 'Thoracic rotation and shoulder release', dur: '90s each' },
+    { name: 'Puppy pose (anahatasana)', note: 'Chest opener · shoulder and lat stretch', dur: '2 min' },
+    { name: 'Cow face arms', note: 'Shoulder joint and rotator cuff', dur: '90s each' },
+    { name: 'Eagle arms', note: 'Rear shoulder / rhomboid stretch', dur: '60s each' },
+    { name: 'Supported fish (block under thoracic)', note: 'Postpartum chest opening — very restorative', dur: '3 min' },
+    { name: 'Savasana', note: 'Full parasympathetic reset', dur: '5 min' },
+  ]
+};
+
+const RACES = [
+  { date: 'Apr 22', day: 'Wed', name: 'Eagle Mountain', sub: 'Wasatch Trail Series #1', note: 'Controlled effort · workout run replacement', type: 'wasatch' },
+  { date: 'Apr 29', day: 'Wed', name: 'Dimple Dell', sub: 'Wasatch Trail Series #2', note: 'Workout run replacement', type: 'wasatch' },
+  { date: 'May 13', day: 'Wed', name: 'Soldier Hollow', sub: 'Wasatch Trail Series #3', note: 'Half is Saturday — keep this controlled!', type: 'wasatch' },
+  { date: 'May 16', day: 'Sat', name: 'Half Trail Marathon', sub: 'B Race · fitness benchmark', note: 'Race this one fully! 3 days after Soldier Hollow.', type: 'b' },
+  { date: 'May 20', day: 'Wed', name: 'Heber', sub: 'Wasatch Trail Series #4', note: '(Alt: if doing May 23 half, skip this)', type: 'wasatch' },
+  { date: 'Jun 3', day: 'Wed', name: 'Dimple Dell #2', sub: 'Wasatch Trail Series #5', note: 'First race back after half recovery', type: 'wasatch' },
+  { date: 'Jun 10', day: 'Wed', name: 'TBD', sub: 'Wasatch Trail Series #6', note: '', type: 'wasatch' },
+  { date: 'Jun 24', day: 'Wed', name: 'Solitude', sub: 'Wasatch Trail Series #7', note: '', type: 'wasatch' },
+  { date: 'Jul 8', day: 'Wed', name: 'Alta', sub: 'Wasatch Trail Series #8', note: 'High vert · excellent Moab prep', type: 'wasatch' },
+  { date: 'Jul 15', day: 'Wed', name: 'Snowbird', sub: 'Wasatch Trail Series #9', note: 'Back-to-back with Alta — keep controlled', type: 'wasatch' },
+  { date: 'Jul 29', day: 'Wed', name: 'Brighton', sub: 'Wasatch Trail Series #10', note: '', type: 'wasatch' },
+  { date: 'Aug 5', day: 'Wed', name: 'Alta #2', sub: 'Wasatch Trail Series #11', note: '', type: 'wasatch' },
+  { date: 'Aug 19', day: 'Wed', name: 'Snowbird #2', sub: 'Wasatch Trail Series #12', note: 'Final series race · peak block starts after', type: 'wasatch' },
+  { date: 'Nov', day: 'Sun', name: 'Moab Trail Marathon', sub: 'A Race · 26.2 mi', note: 'The goal. Everything has led to this.', type: 'a' },
+];
+
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let currentWeek = 0;
+let logs = JSON.parse(localStorage.getItem('moab-logs') || '{}');
+
+// saveLog / deleteLog are defined here as localStorage-only fallbacks.
+// Once Firebase initialises, initFirebase() redefines them to sync to the DB.
+function saveLog(key, data) {
+  logs[key] = data;
+  localStorage.setItem('moab-logs', JSON.stringify(logs));
+}
+function getLog(key) { return logs[key] || null; }
+function deleteLog(key) {
+  delete logs[key];
+  localStorage.setItem('moab-logs', JSON.stringify(logs));
+}
+
+// Find current week based on today's date
+function initCurrentWeek() {
+  const today = new Date();
+  const msPerWeek = 7 * 24 * 60 * 60 * 1000;
+  const weeksSinceStart = Math.floor((today - PLAN_START) / msPerWeek);
+  currentWeek = Math.max(0, Math.min(weeksSinceStart, WEEKS.length - 1));
+}
+
+function getWeekStartDate(weekIdx) {
+  const d = new Date(PLAN_START);
+  d.setDate(d.getDate() + weekIdx * 7);
+  return d;
+}
+
+function getDayDate(weekIdx, dayIdx) {
+  const start = getWeekStartDate(weekIdx);
+  start.setDate(start.getDate() + dayIdx);
+  return start;
+}
+
+function isToday(weekIdx, dayIdx) {
+  const d = getDayDate(weekIdx, dayIdx);
+  const today = new Date();
+  return d.toDateString() === today.toDateString();
+}
+
+function logKey(weekIdx, dayIdx) {
+  return `w${weekIdx}-d${dayIdx}`;
+}
+
+// ─────────────────────────────────────────────
+// RENDER SCHEDULE
+// ─────────────────────────────────────────────
+function renderSchedule() {
+  const week = WEEKS[currentWeek];
+  document.getElementById('wk-phase').textContent = week.phase;
+  document.getElementById('wk-label').textContent = week.label + ' · ' + week.miles;
+
+  // Update phase pill
+  document.getElementById('phase-pill-text').textContent = week.phase;
+
+  const container = document.getElementById('week-days');
+  container.innerHTML = '';
+
+  // Progress bar
+  const totalDays = WEEKS.length * 7;
+  const completedDays = Object.keys(logs).filter(k => logs[k] && logs[k].done).length;
+  const pct = Math.round((completedDays / totalDays) * 100);
+  container.innerHTML += `
+    <div class="progress-wrap">
+      <div class="progress-title">Overall Progress</div>
+      <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:8px">
+        <span class="progress-num">${completedDays}</span>
+        <span style="font-size:12px;color:var(--ink-light)">workouts logged of ${totalDays} total</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${pct}%"></div></div>
+      <div class="progress-stats"><span>${pct}% complete</span><span>Moab: November 2026</span></div>
+    </div>`;
+
+  week.days.forEach((day, dayIdx) => {
+    const key = logKey(currentWeek, dayIdx);
+    const log = getLog(key);
+    const done = log && log.done;
+    const today = isToday(currentWeek, dayIdx);
+    const dayDate = getDayDate(currentWeek, dayIdx);
+    const dateStr = dayDate.toLocaleDateString('en-US', { month:'short', day:'numeric' });
+
+    const card = document.createElement('div');
+    card.className = `day-card type-${day.type}${today ? ' is-today' : ''}${done ? ' logged' : ''}`;
+    card.id = `day-card-${dayIdx}`;
+
+    card.innerHTML = `
+      <div class="day-header" onclick="toggleDay(${dayIdx})">
+        <div class="day-dot-wrap type-${day.type}">
+          <span style="font-size:18px">${day.emoji}</span>
+        </div>
+        <div class="day-info">
+          <div class="day-name-row">
+            <span class="day-name">${day.d}</span>
+            <span class="day-date">${dateStr}</span>
+            ${today ? '<span style="font-size:9px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.1em">Today</span>' : ''}
+          </div>
+          <div class="day-title">${day.title}</div>
+          <div class="day-sub">${day.sub}</div>
+        </div>
+        <div class="day-actions">
+          <button class="log-btn ${done ? 'done' : ''}" id="log-btn-${dayIdx}" onclick="event.stopPropagation();toggleLog(${dayIdx})"></button>
+          <button class="delete-btn ${done ? 'visible' : ''}" id="del-btn-${dayIdx}" onclick="event.stopPropagation();deleteEntry(${dayIdx})" title="Delete log">✕</button>
+          <span class="chevron">▾</span>
+        </div>
+      </div>
+      ${log && log.note ? `<div class="logged-note-display has-note" id="note-display-${dayIdx}"><div class="logged-label">Your note</div>${log.note}</div>` : `<div class="logged-note-display" id="note-display-${dayIdx}"></div>`}
+      <div class="day-detail-panel" id="detail-panel-${dayIdx}">
+        ${renderDayDetail(day, dayIdx, log)}
+      </div>`;
+
+    container.appendChild(card);
+  });
+}
+
+function renderDayDetail(day, dayIdx, log) {
+  if (!day.detail) return '<div style="padding:14px;font-size:13px;color:var(--ink-light)">Rest day — recover well.</div>';
+
+  let html = '';
+  const d = day.detail;
+
+  if (d.type === 'gym') {
+    const gym = d.workout === 'A' ? GYM_A : GYM_B;
+    gym.blocks.forEach(block => {
+      html += `<div class="gym-block-label">${block.label}</div>`;
+      html += `<div style="padding:0 14px 8px"><div class="superset-block">`;
+      block.exercises.forEach(ex => {
+        html += `<div class="exercise-row"><div><div class="ex-name">${ex.name}</div><div class="ex-note">${ex.note}</div></div><div class="ex-sets">${ex.sets}</div></div>`;
+      });
+      html += '</div></div>';
+    });
+  } else if (d.type === 'yoga') {
+    const yoga = d.seq === 'A' ? YOGA_A : YOGA_B;
+    html += `<div class="detail-section"><div class="detail-section-label">${yoga.focus}</div>`;
+    html += `<div class="superset-block">`;
+    yoga.poses.forEach(p => {
+      html += `<div class="yoga-pose-row"><div><div class="pose-name">${p.name}</div><div class="pose-note">${p.note}</div></div><div class="pose-dur">${p.dur}</div></div>`;
+    });
+    html += '</div></div>';
+  } else if (d.type === 'run') {
+    html += '<div class="detail-section">';
+    if (d.run === 'hill') {
+      const ph = d.phase;
+      html += `<div class="superset-block"><div class="superset-header">Hill Workout</div>
+        <div class="run-detail-row"><div class="rdl">Warmup</div><div class="rdr">8–10 min easy flat</div></div>
+        <div class="run-detail-row"><div class="rdl">Reps</div><div class="rdr">${ph===1 ? '6 × 60s hard uphill · walk down' : '6–8 × 90s uphill · walk down'}</div></div>
+        <div class="run-detail-row"><div class="rdl">Effort</div><div class="rdr">Z4 up · full walk recovery down</div></div>
+        <div class="run-detail-row"><div class="rdl">Descent cue</div><div class="rdr">Active foot placement · don\'t let ankle collapse</div></div>
+        <div class="run-detail-row"><div class="rdl">Cooldown</div><div class="rdr">5 min easy</div></div>
+        <div class="run-detail-row"><div class="rdl">Total</div><div class="rdr">30–45 min</div></div>
+      </div>`;
+    } else if (d.run === 'tempo') {
+      const ph = d.phase;
+      html += `<div class="superset-block"><div class="superset-header">Tempo Run · 30–45 min total</div>
+        <div class="run-detail-row"><div class="rdl">Warmup</div><div class="rdr">5–8 min easy jog</div></div>
+        <div class="run-detail-row"><div class="rdl">Work</div><div class="rdr">${ph===1 ? '2 × 8 min Z3 · 2 min jog recovery' : ph===2 ? '2 × 12 min Z3 · 2 min jog recovery' : '18–20 min continuous Z3'}</div></div>
+        <div class="run-detail-row"><div class="rdl">Feel</div><div class="rdr">Comfortably hard · 3–4 words before breathing</div></div>
+        <div class="run-detail-row"><div class="rdl">HR target</div><div class="rdr">152–167 bpm (Z3)</div></div>
+        <div class="run-detail-row"><div class="rdl">Cooldown</div><div class="rdr">5 min easy</div></div>
+      </div>`;
+    } else if (d.run === 'interval') {
+      html += `<div class="superset-block"><div class="superset-header">Interval Run · 35–45 min total</div>
+        <div class="run-detail-row"><div class="rdl">Warmup</div><div class="rdr">8 min easy + 4 strides</div></div>
+        <div class="run-detail-row"><div class="rdl">Work</div><div class="rdr">5–6 × 2 min hard / 90s easy</div></div>
+        <div class="run-detail-row"><div class="rdl">Effort</div><div class="rdr">Z4–5 · hard but controlled</div></div>
+        <div class="run-detail-row"><div class="rdl">Cooldown</div><div class="rdr">5 min easy</div></div>
+      </div>`;
+    } else if (d.run === 'long') {
+      html += `<div class="superset-block"><div class="superset-header">Long Run</div>
+        <div class="run-detail-row"><div class="rdl">Target</div><div class="rdr">${d.notes || 'See weekly detail'}</div></div>
+        <div class="run-detail-row"><div class="rdl">Effort</div><div class="rdr">Easy to moderate · hike steep uphills</div></div>
+        <div class="run-detail-row"><div class="rdl">HR</div><div class="rdr">Z1–Z2 · 120–152 bpm</div></div>
+        <div class="run-detail-row"><div class="rdl">Fueling</div><div class="rdr">Start at 45 min on runs 90+ min</div></div>
+        <div class="run-detail-row"><div class="rdl">Downhill cue</div><div class="rdr">Forward ankle lean · quick cadence · relax quads</div></div>
+      </div>`;
+    } else if (d.run === 'easy') {
+      html += `<div class="superset-block"><div class="superset-header">Easy Run</div>
+        <div class="run-detail-row"><div class="rdl">Target</div><div class="rdr">${d.notes || '4–6 mi · easy'}</div></div>
+        <div class="run-detail-row"><div class="rdl">Effort</div><div class="rdr">Conversational · nasal breath</div></div>
+        <div class="run-detail-row"><div class="rdl">HR</div><div class="rdr">Z1–Z2 · 120–152 bpm</div></div>
+      </div>`;
+    }
+    html += '</div>';
+  } else if (d.type === 'race') {
+    html += `<div class="detail-section"><div class="superset-block"><div class="superset-header">${d.name}</div>
+      <div class="run-detail-row"><div class="rdl">Notes</div><div class="rdr">${d.notes || ''}</div></div>
+    </div></div>`;
+  }
+
+  // Log note area
+  html += `<div class="log-note-area">
+    <div class="detail-section-label" style="padding:0 0 6px">Your notes</div>
+    <textarea id="note-input-${dayIdx}" placeholder="How did it go? Distance, time, how you felt...">${log && log.note ? log.note : ''}</textarea>
+    <button class="save-note-btn" onclick="saveNote(${dayIdx})">Save note</button>
+  </div>`;
+
+  return html;
+}
+
+function toggleDay(dayIdx) {
+  const card = document.getElementById(`day-card-${dayIdx}`);
+  card.classList.toggle('open');
+}
+
+function toggleLog(dayIdx) {
+  const key = logKey(currentWeek, dayIdx);
+  const log = getLog(key) || {};
+  const newDone = !log.done;
+  saveLog(key, { ...log, done: newDone });
+  renderSchedule();
+  // Re-open the card if it was open
+}
+
+function deleteEntry(dayIdx) {
+  const key = logKey(currentWeek, dayIdx);
+  deleteLog(key);
+  renderSchedule();
+}
+
+function saveNote(dayIdx) {
+  const key = logKey(currentWeek, dayIdx);
+  const note = document.getElementById(`note-input-${dayIdx}`).value.trim();
+  const log = getLog(key) || {};
+  saveLog(key, { ...log, note });
+  // Update display
+  const disp = document.getElementById(`note-display-${dayIdx}`);
+  if (note) {
+    disp.className = 'logged-note-display has-note';
+    disp.innerHTML = `<div class="logged-label">Your note</div>${note}`;
+  } else {
+    disp.className = 'logged-note-display';
+  }
+  // Brief feedback
+  const btn = document.querySelector(`#day-card-${dayIdx} .save-note-btn`);
+  btn.textContent = 'Saved ✓';
+  btn.style.background = '#0e5a41';
+  setTimeout(() => { btn.textContent = 'Save note'; btn.style.background = ''; }, 1500);
+}
+
+function changeWeek(dir) {
+  currentWeek = Math.max(0, Math.min(currentWeek + dir, WEEKS.length - 1));
+  renderSchedule();
+  window.scrollTo(0, 0);
+}
+
+// ─────────────────────────────────────────────
+// RENDER RACES
+// ─────────────────────────────────────────────
+function renderRaces() {
+  const container = document.getElementById('race-list');
+  let lastType = null;
+  let html = '';
+  RACES.forEach(r => {
+    if (r.type !== lastType) {
+      const label = r.type === 'a' ? 'A Race' : r.type === 'b' ? 'B Race — Half Marathon' : 'Wasatch Trail Series (Wednesdays)';
+      html += `<div class="race-section-header">${label}</div>`;
+      lastType = r.type;
+    }
+    const dotColor = r.type === 'a' ? 'var(--coral)' : r.type === 'b' ? 'var(--amber)' : 'var(--teal)';
+    html += `<div class="race-item ${r.type === 'a' ? 'a-race' : r.type === 'b' ? 'b-race' : ''}">
+      <div class="race-dot-lg" style="background:${dotColor}"></div>
+      <div class="race-date-col">
+        <div class="race-date-main">${r.date}</div>
+        <div class="race-date-day">${r.day}</div>
+      </div>
+      <div>
+        <div class="race-name">${r.name}</div>
+        <div class="race-sub">${r.sub}</div>
+        ${r.note ? `<div class="race-note-text">${r.note}</div>` : ''}
+      </div>
+    </div>`;
+  });
+  container.innerHTML = html;
+}
+
+// ─────────────────────────────────────────────
+// RENDER GYM
+// ─────────────────────────────────────────────
+function renderGym() {
+  const container = document.getElementById('gym-content');
+  [GYM_A, GYM_B].forEach((gym, gi) => {
+    let html = `<div class="gym-card" id="gym-card-${gi}">
+      <div class="gym-card-header" onclick="toggleGymCard(${gi})">
+        <div>
+          <div class="gym-card-title">${gym.title}</div>
+          <div class="gym-card-sub">${gym.focus}</div>
+        </div>
+        <span class="gym-chevron">▾</span>
+      </div>
+      <div class="gym-card-body">`;
+    gym.blocks.forEach(block => {
+      html += `<div class="gym-block-label">${block.label}</div>
+        <div style="padding:0 14px 8px"><div class="superset-block">`;
+      block.exercises.forEach(ex => {
+        html += `<div class="exercise-row"><div><div class="ex-name">${ex.name}</div><div class="ex-note">${ex.note}</div></div><div class="ex-sets">${ex.sets}</div></div>`;
+      });
+      html += '</div></div>';
+    });
+    html += '</div></div>';
+    container.innerHTML += html;
+  });
+
+  // Phase progression note
+  container.innerHTML += `<div class="info-card" style="margin-top:4px">
+    <h3>Phase Progressions</h3>
+    <p><strong>Phase 2:</strong> Add banded hip thrusts, depth jump variations, loaded lateral hops, heavier KB on step-downs.<br>
+    <strong>Phase 3:</strong> Maintain strength — reduce volume 20%, prioritize quality and freshness over load.</p>
+  </div>`;
+}
+
+function toggleGymCard(i) {
+  document.getElementById(`gym-card-${i}`).classList.toggle('open');
+}
+
+// ─────────────────────────────────────────────
+// RENDER YOGA
+// ─────────────────────────────────────────────
+function renderYoga() {
+  const container = document.getElementById('yoga-content');
+  [YOGA_A, YOGA_B].forEach((yoga, yi) => {
+    let html = `<div class="yoga-card" id="yoga-card-${yi}">
+      <div class="yoga-card-header" onclick="toggleYogaCard(${yi})">
+        <div>
+          <div class="yoga-card-title">${yoga.title}</div>
+          <div class="yoga-card-sub">${yoga.focus}</div>
+        </div>
+        <span class="yoga-chevron">▾</span>
+      </div>
+      <div class="yoga-card-body">`;
+    yoga.poses.forEach(p => {
+      html += `<div class="yoga-pose-row"><div><div class="pose-name">${p.name}</div><div class="pose-note">${p.note}</div></div><div class="pose-dur">${p.dur}</div></div>`;
+    });
+    html += '</div></div>';
+    container.innerHTML += html;
+  });
+  container.innerHTML += `<div class="info-card" style="margin-top:4px"><p><strong>Postpartum note:</strong> Avoid aggressive twists or deep backbends if pelvic floor symptoms arise. Core reconnection takes priority over range-pushing. Alternate A and B each Monday.</p></div>`;
+}
+
+function toggleYogaCard(i) {
+  document.getElementById(`yoga-card-${i}`).classList.toggle('open');
+}
+
+// ─────────────────────────────────────────────
+// RENDER RUNNING
+// ─────────────────────────────────────────────
+function renderRunning() {
+  const container = document.getElementById('running-content');
+  container.innerHTML = `
+    <div class="info-card">
+      <h3>Heart Rate Zones</h3>
+      <p style="font-size:12px;margin-bottom:10px">Age 30 · est. max HR 190 bpm (220 − age). Refine after a MAF test.</p>
+      <div class="hr-zone-row"><span class="zone-label">Z1</span><div class="zone-bar-wrap"><div class="zone-bar" style="width:20%;background:#9FE1CB"></div></div><span class="zone-bpm">&lt;133 bpm</span></div>
+      <div class="hr-zone-row"><span class="zone-label">Z2</span><div class="zone-bar-wrap"><div class="zone-bar" style="width:38%;background:var(--teal)"></div></div><span class="zone-bpm">133–152 bpm</span></div>
+      <div class="hr-zone-row"><span class="zone-label">Z3</span><div class="zone-bar-wrap"><div class="zone-bar" style="width:57%;background:var(--amber)"></div></div><span class="zone-bpm">152–167 bpm</span></div>
+      <div class="hr-zone-row"><span class="zone-label">Z4</span><div class="zone-bar-wrap"><div class="zone-bar" style="width:76%;background:var(--coral)"></div></div><span class="zone-bpm">167–181 bpm</span></div>
+      <div class="hr-zone-row"><span class="zone-label">Z5</span><div class="zone-bar-wrap"><div class="zone-bar" style="width:100%;background:#A32D2D"></div></div><span class="zone-bpm">181–190 bpm</span></div>
+    </div>
+
+    <div class="info-card">
+      <h3>Wasatch Race Weeks</h3>
+      <p>Wed race = workout run replacement. Thu becomes easy/rest. Fri gym stays. Saturday long run is kept — pull back 1–2 mi if heavy from Wednesday's race.</p>
+    </div>
+
+    <div class="info-card">
+      <h3>Long Run</h3>
+      <p><strong>Phase 1:</strong> 8–11 mi · build ~10%/week<br>
+      <strong>Phase 2:</strong> 12–16 mi · kept every Saturday even on race weeks<br>
+      <strong>Phase 3:</strong> Peak 18–22 mi · or B2B 12+10<br><br>
+      Fuel every 45 min on runs 90+ min. Hike steep uphills.</p>
+    </div>
+
+    <div class="info-card">
+      <h3>Downhill Technique</h3>
+      <div class="downhill-tip"><div class="tip-bullet">⚡</div><div class="tip-body"><div class="tip-title">Lean from the ankles</div><div class="tip-desc">Forward lean from ankles, not the waist. Let gravity work.</div></div></div>
+      <div class="downhill-tip"><div class="tip-bullet">👟</div><div class="tip-body"><div class="tip-title">Quick cadence over braking</div><div class="tip-desc">Rapid light steps, not heel-braking. Target 170–180 spm on descent.</div></div></div>
+      <div class="downhill-tip"><div class="tip-bullet">🦶</div><div class="tip-body"><div class="tip-title">Active ankle</div><div class="tip-desc">Slight dorsiflexion on contact. The eccentric step-downs and lateral hops train this directly.</div></div></div>
+      <div class="downhill-tip"><div class="tip-bullet">💪</div><div class="tip-body"><div class="tip-title">Arms wide</div><div class="tip-desc">Slightly out from body for balance on technical terrain.</div></div></div>
+      <div class="downhill-tip"><div class="tip-bullet">👁</div><div class="tip-body"><div class="tip-title">Eyes 6–10 feet ahead</div><div class="tip-desc">Let your feet react — don't stare at the ground.</div></div></div>
+      <div class="downhill-tip"><div class="tip-bullet">😌</div><div class="tip-body"><div class="tip-title">Relax the quads</div><div class="tip-desc">Tension slows you down and increases injury risk. Trust the gym work.</div></div></div>
+    </div>`;
+}
+
+// ─────────────────────────────────────────────
+// RENDER OVERVIEW
+// ─────────────────────────────────────────────
+function renderOverview() {
+  document.getElementById('overview-content').innerHTML = `
+    <div class="info-card">
+      <h3>Phase 1 — Foundation</h3>
+      <p>Apr 6 – May 11 · Aerobic base, postpartum core reconnection, glute med, adductor and ankle stability. Wasatch races on Wednesdays start as controlled efforts. Long run builds to 11 mi into Soldier Hollow + Half Marathon.</p>
+      <div style="margin-top:8px"><span class="badge badge-teal">base building</span><span class="badge badge-purple">strength foundation</span><span class="badge badge-gray">ankle stability</span></div>
+    </div>
+    <div class="info-card">
+      <h3>Phase 2 — Build</h3>
+      <p>May 18 – Aug 19 · Post-half recovery, then every Wasatch Wednesday race slots in as the workout run replacement. Saturday long runs grow to 15–16 mi independently. Gym shifts to power and plyos.</p>
+      <div style="margin-top:8px"><span class="badge badge-teal">volume build</span><span class="badge badge-amber">race fitness</span><span class="badge badge-purple">power + plyos</span></div>
+    </div>
+    <div class="info-card">
+      <h3>Phase 3 — Peak & Taper</h3>
+      <p>Aug 24 – November · No more Wasatch races. True peak block with long runs 18–22 mi. Race-specific downhill volume. Strength maintenance. 3-week Moab taper.</p>
+      <div style="margin-top:8px"><span class="badge badge-coral">race specific</span><span class="badge badge-teal">peak volume</span><span class="badge badge-gray">taper</span></div>
+    </div>
+    <div class="info-card">
+      <h3>Weekly Template</h3>
+      <p>
+        <strong>Mon</strong> — Yoga (A/B alternating)<br>
+        <strong>Tue</strong> — Gym A or B<br>
+        <strong>Wed</strong> — Rest / easy run / Wasatch race<br>
+        <strong>Thu</strong> — Workout run (or easy if Wed was a race)<br>
+        <strong>Fri</strong> — Gym A or B<br>
+        <strong>Sat</strong> — Long run (every week)<br>
+        <strong>Sun</strong> — Rest
+      </p>
+    </div>
+    <div class="info-card">
+      <h3>Key Principles</h3>
+      <p>
+        · 80% of running in Z1–Z2 (aerobic base)<br>
+        · Saturday long run is sacred — keep it every week<br>
+        · Wasatch races replace Thu workout, not Saturday<br>
+        · Thu becomes easy/rest after every Wednesday race<br>
+        · Pull back Sat long run 1–2 mi on race weeks if needed<br>
+        · One Wasatch race per week max — never stack two
+      </p>
+    </div>`;
+}
+
+// ─────────────────────────────────────────────
+// NAV
+// ─────────────────────────────────────────────
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.snav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ─────────────────────────────────────────────
+// FIREBASE SYNC
+// ─────────────────────────────────────────────
+// All logs live at /hannah/logs/{key} in Firebase.
+// localStorage is used as an instant read cache so
+// the UI never waits for the network on load.
+
+const FB_CONFIG = {
+  apiKey: "AIzaSyAQQstlHpmuag7L2811rS3GfTmNoVpBy6E",
+  authDomain: "chore-chart-v2.firebaseapp.com",
+  databaseURL: "https://chore-chart-v2-default-rtdb.firebaseio.com",
+  projectId: "chore-chart-v2",
+  storageBucket: "chore-chart-v2.firebasestorage.app",
+  messagingSenderId: "322816069788",
+  appId: "1:322816069788:web:d49ece311c0598a5639d59"
+};
+
+const FB_PATH = 'hannah/logs';
+let db = null;
+let fbLogsRef = null;
+let syncStatus = 'connecting'; // 'connecting' | 'synced' | 'offline'
+
+function initFirebase() {
+  try {
+    firebase.initializeApp(FB_CONFIG);
+    db = firebase.database();
+    fbLogsRef = db.ref(FB_PATH);
+    _fbReady();
+
+    // Show sync indicator
+    updateSyncBadge('connecting');
+
+    // Listen for all log changes in real-time
+    fbLogsRef.on('value', (snapshot) => {
+      const fbData = snapshot.val() || {};
+      // Merge Firebase data into local cache + memory
+      logs = { ...logs, ...fbData };
+      localStorage.setItem('moab-logs', JSON.stringify(logs));
+      updateSyncBadge('synced');
+      // Re-render schedule if it's active (won't disrupt other tabs)
+      const schedActive = document.getElementById('sec-schedule').classList.contains('active');
+      if (schedActive) renderSchedule();
+    }, (err) => {
+      console.warn('Firebase read error:', err);
+      updateSyncBadge('offline');
+    });
+
+    // Detect connectivity
+    db.ref('.info/connected').on('value', snap => {
+      updateSyncBadge(snap.val() ? 'synced' : 'offline');
+    });
+
+  } catch(e) {
+    console.warn('Firebase init failed:', e);
+    updateSyncBadge('offline');
+  }
+}
+
+function fbSaveLog(key, data) {
+  // Write to local immediately, fire to Firebase
+  logs[key] = data;
+  localStorage.setItem('moab-logs', JSON.stringify(logs));
+  if (fbLogsRef) {
+    fbLogsRef.child(key).set(data).catch(e => console.warn('FB write error:', e));
+  }
+}
+
+function fbDeleteLog(key) {
+  delete logs[key];
+  localStorage.setItem('moab-logs', JSON.stringify(logs));
+  if (fbLogsRef) {
+    fbLogsRef.child(key).remove().catch(e => console.warn('FB delete error:', e));
+  }
+}
+
+// Override the localStorage-only functions with Firebase-backed versions
+// called once Firebase is ready
+function _fbReady() {
+  saveLog  = fbSaveLog;
+  deleteLog = fbDeleteLog;
+}
+
+// ── Sync status badge ──
+function updateSyncBadge(status) {
+  syncStatus = status;
+  const badge = document.getElementById('sync-badge');
+  if (!badge) return;
+  const configs = {
+    connecting: { text: '⟳ syncing', color: 'rgba(255,255,255,0.3)' },
+    synced:     { text: '✓ synced',  color: 'rgba(29,158,117,0.7)' },
+    offline:    { text: '⚡ offline', color: 'rgba(216,90,48,0.7)' },
+  };
+  const c = configs[status] || configs.offline;
+  badge.textContent = c.text;
+  badge.style.background = c.color;
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+initCurrentWeek();
+renderSchedule();
+renderRaces();
+renderGym();
+renderYoga();
+renderRunning();
+renderOverview();
+initFirebase();
+</script>
+
+
+</body>
+</html>
