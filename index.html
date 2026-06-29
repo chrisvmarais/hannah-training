@@ -638,180 +638,82 @@ html, body {
 // ─────────────────────────────────────────────
 
 // Plan start date: Mon Apr 6 2026
-const PLAN_START = new Date(2026, 3, 6); // Apr 6
+// Plan start date: rebuild block begins Mon Jun 29 2026
+const PLAN_START = new Date(2026, 5, 29); // Jun 29
 
 const WEEKS = [
-  // PHASE 1 ──────────────────────────────────────────────────────────
-  { phase: 'Phase 1 — Foundation', label: 'Week of Apr 6', miles: '~14 mi', days: [
-    { d:'Mon', name:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body · 45 min', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
-    { d:'Tue', name:'Tue', title:'Gym A', sub:'Glute med, core & ankle · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', name:'Wed', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
-    { d:'Thu', name:'Thu', title:'Hill Workout', sub:'6 × 60s hill reps · 45 min', type:'run', emoji:'🏃', detail: { type:'run', run:'hill', phase:1 } },
-    { d:'Fri', name:'Fri', title:'Gym B', sub:'Downhill strength · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Sat', name:'Sat', title:'Long Run', sub:'8 mi · Z1–Z2 · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:1, notes:'8 mi · Z1–Z2 · trail' } },
-    { d:'Sun', name:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
+  // REBUILD BLOCK ──────────────────────────────────────────────────────
+  { phase: 'Rebuild — Returning to Structure', label: 'Week of Jun 29', miles: '~12 mi · easy does it', days: [
+    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body · 45 min', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', title:'Gym A', sub:'Express glute med & ankle · 30 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Wed', title:'Easy Run', sub:'3 mi · very easy · Z1', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:1, notes:'3 mi very easy · Z1 · no Wasatch race this week' } },
+    { d:'Thu', title:'Easy Run', sub:'4 mi · Z1–Z2 · rebuilding', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:1, notes:'4 mi · Z1–Z2 · no hard workout yet' } },
+    { d:'Fri', title:'Gym B', sub:'Downhill strength & power · 45 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'8 mi · Z1–Z2 · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:1, notes:'8 mi · Z1–Z2 · trail · conservative rebuild distance' } },
+    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
   ]},
-  { phase: 'Phase 1 — Foundation', label: 'Week of Apr 13', miles: '~16 mi', days: [
+  { phase: 'Rebuild — Returning to Structure', label: 'Week of Jul 6 · Alta Jul 8', miles: '~14 mi', days: [
     { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic · 45 min', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
-    { d:'Tue', title:'Gym B', sub:'Downhill strength · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Wed', title:'Easy Run', sub:'4 mi · Z1–Z2 · flat trail', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:1, notes:'4 mi · Z1–Z2' } },
-    { d:'Thu', title:'Hill Workout', sub:'8 × 60s hill reps · 50 min', type:'run', emoji:'🏃', detail: { type:'run', run:'hill', phase:1 } },
-    { d:'Fri', title:'Gym A', sub:'Glute med, core & ankle · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Tue', title:'Gym C', sub:'Posterior chain, adductors & arms · 45 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'C' } },
+    { d:'Wed', title:'Alta', sub:'Wasatch #8 · Jul 8 · controlled — still rebuilding', type:'race', emoji:'🏅', detail: { type:'race', name:'Alta', notes:'Wasatch #8 · high vert · keep this controlled while rebuilding fitness — not all-out' } },
+    { d:'Thu', title:'Easy Run', sub:'3–4 mi easy · absorb Wednesday', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:1, notes:'3–4 mi easy · still rebuilding' } },
+    { d:'Fri', title:'Gym A', sub:'Express glute med & ankle · 30 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
     { d:'Sat', title:'Long Run', sub:'9 mi · Z1–Z2 · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:1, notes:'9 mi · Z1–Z2 · trail' } },
     { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
   ]},
-  { phase: 'Phase 1 — Foundation', label: 'Week of Apr 20 · Eagle Mtn Apr 22', miles: '~16 mi', days: [
-    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
-    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', title:'Eagle Mountain', sub:'Wasatch #1 · Apr 22 · controlled effort', type:'race', emoji:'🏅', detail: { type:'race', name:'Eagle Mountain', notes:'Wasatch #1 · controlled effort, not all-out' } },
-    { d:'Thu', title:'Easy Run', sub:'3–4 mi easy · absorb Wednesday', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:1, notes:'3–4 mi easy · recovery after race' } },
-    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Sat', title:'Long Run', sub:'10 mi · trail · pull back if heavy', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:1, notes:'10 mi · pull back 1 mi if legs heavy from Wed' } },
-    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
-  ]},
-  { phase: 'Phase 1 — Foundation', label: 'Week of Apr 27 · Dimple Dell Apr 29', miles: '~16 mi', days: [
-    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
-    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', title:'Dimple Dell', sub:'Wasatch #2 · Apr 29', type:'race', emoji:'🏅', detail: { type:'race', name:'Dimple Dell', notes:'Wasatch #2 · workout run replacement' } },
-    { d:'Thu', title:'Easy Run', sub:'3–4 mi easy · absorb Wednesday', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:1, notes:'3–4 mi easy' } },
-    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Sat', title:'Long Run', sub:'10–11 mi · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:1, notes:'10–11 mi · trail' } },
-    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
-  ]},
-  { phase: 'Phase 1 — Foundation', label: 'Week of May 4 · Soldier Hollow May 13', miles: 'Race prep', days: [
-    { d:'Mon', title:'Yoga A', sub:'Short hip sequence · 30 min', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
-    { d:'Tue', title:'Gym A', sub:'Light only · 25 min · no finisher', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', title:'Rest', sub:'Off feet · pre-race week', type:'rest', emoji:'😴', detail: null },
-    { d:'Thu', title:'Easy Run', sub:'3 mi easy + 4 strides', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:1, notes:'3 mi easy + 4 strides · shakeout' } },
-    { d:'Fri', title:'Rest', sub:'Off feet', type:'rest', emoji:'😴', detail: null },
-    { d:'Sat', title:'Rest', sub:'Off feet · hydrate · sleep', type:'rest', emoji:'😴', detail: null },
-    { d:'Sun', title:'Rest', sub:'Final rest before race week', type:'rest', emoji:'😴', detail: null },
-  ]},
-  { phase: 'Phase 1 — Foundation', label: 'Week of May 11 · Soldier Hollow + Half', miles: 'RACE WEEK', days: [
-    { d:'Mon', title:'Yoga A', sub:'Short restorative · 30 min', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
-    { d:'Tue', title:'Gym A', sub:'Very light · 20 min only', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', title:'Soldier Hollow', sub:'Wasatch #3 · May 13 · controlled effort', type:'race', emoji:'🏅', detail: { type:'race', name:'Soldier Hollow', notes:'Wasatch #3 · CONTROLLED — half marathon is Saturday. Do not race this all-out.' } },
-    { d:'Thu', title:'Rest', sub:'Legs up the wall · gentle mobility only', type:'rest', emoji:'😴', detail: null },
-    { d:'Fri', title:'Rest', sub:'Full rest · off feet', type:'rest', emoji:'😴', detail: null },
-    { d:'Sat', title:'HALF MARATHON', sub:'May 16 · B Race · go get it', type:'race', emoji:'🎯', detail: { type:'race', name:'Half Trail Marathon', notes:'B Race · fitness benchmark · race this one fully!' } },
-    { d:'Sun', title:'Rest', sub:'Full rest · celebrate!', type:'rest', emoji:'😴', detail: null },
-  ]},
 
-  // PHASE 2 ──────────────────────────────────────────────────────────
-  { phase: 'Phase 2 — Build', label: 'Post-Half Recovery', miles: '~10 mi', days: [
-    { d:'Mon', title:'Yoga B', sub:'Full body restorative · 45 min', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
-    { d:'Tue', title:'Rest or Walk', sub:'No gym · feel it out', type:'rest', emoji:'😴', detail: null },
-    { d:'Wed', title:'Easy Run', sub:'3–4 mi · very easy · Z1', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi very easy · Z1' } },
-    { d:'Thu', title:'Easy Run', sub:'4 mi easy · no workout', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'4 mi easy' } },
-    { d:'Fri', title:'Gym B', sub:'Light · no plyos · 30 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Sat', title:'Long Run', sub:'8–9 mi · easy Z1–Z2', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'8–9 mi · easy Z1–Z2 · recovery long run' } },
+  // BUILD BLOCK ──────────────────────────────────────────────────────────
+  { phase: 'Build — Back to Full Training', label: 'Week of Jul 13 · Snowbird Jul 15', miles: '~16 mi', days: [
+    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
+    { d:'Tue', title:'Gym B', sub:'Downhill strength & power · 45 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Wed', title:'Snowbird', sub:'Wasatch #9 · Jul 15 · back-to-back with Alta', type:'race', emoji:'🏅', detail: { type:'race', name:'Snowbird', notes:'Wasatch #9 · back-to-back week — keep effort controlled' } },
+    { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy or rest' } },
+    { d:'Fri', title:'Gym C', sub:'Posterior chain, adductors & arms · 45 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'C' } },
+    { d:'Sat', title:'Long Run', sub:'10 mi · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'10 mi · trail' } },
     { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
   ]},
-  { phase: 'Phase 2 — Build', label: 'Rebuild · Week of May 18', miles: '~18 mi', days: [
-    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
-    { d:'Tue', title:'Gym A', sub:'Full session · begin adding load', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+  { phase: 'Build — Back to Full Training', label: 'Week of Jul 20 · reintroduce hills', miles: '~19 mi', days: [
+    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
+    { d:'Tue', title:'Gym A', sub:'Express glute med & ankle · 30 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
     { d:'Wed', title:'Easy Run', sub:'5 mi · Z1–Z2', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'5 mi · Z1–Z2' } },
-    { d:'Thu', title:'Hill Workout', sub:'8 × 90s hill reps · Phase 2', type:'run', emoji:'🏃', detail: { type:'run', run:'hill', phase:2 } },
-    { d:'Fri', title:'Gym B', sub:'Begin adding plyos · 40 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Sat', title:'Long Run', sub:'12 mi · trail · descent work', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'12 mi · trail · include descent practice' } },
+    { d:'Thu', title:'Hill Workout', sub:'6 × 60s hill reps · first since rebuild', type:'run', emoji:'🏃', detail: { type:'run', run:'hill', phase:1 } },
+    { d:'Fri', title:'Gym B', sub:'Downhill strength & power · 45 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'12 mi · trail · vert', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'12 mi · trail · include some vert' } },
     { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
   ]},
-  { phase: 'Phase 2 — Build', label: 'Dimple Dell #2 · Jun 3', miles: '~19 mi', days: [
-    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
-    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', title:'Dimple Dell #2', sub:'Wasatch #5 · Jun 3', type:'race', emoji:'🏅', detail: { type:'race', name:'Dimple Dell #2', notes:'Wasatch #5 · workout run replacement' } },
-    { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy · absorb Wednesday', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy or rest' } },
-    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Sat', title:'Long Run', sub:'12–13 mi · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'12–13 mi · pull back 1–2 mi if heavy' } },
-    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
-  ]},
-  { phase: 'Phase 2 — Build', label: 'TBD Race · Jun 10', miles: '~19 mi', days: [
+  { phase: 'Build — Back to Full Training', label: 'Week of Jul 27 · Brighton Jul 29', miles: '~18 mi', days: [
     { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
-    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', title:'TBD Race', sub:'Wasatch #6 · Jun 10', type:'race', emoji:'🏅', detail: { type:'race', name:'TBD', notes:'Wasatch #6 · Jun 10 · workout run replacement' } },
+    { d:'Tue', title:'Gym C', sub:'Posterior chain, adductors & arms · 45 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'C' } },
+    { d:'Wed', title:'Brighton', sub:'Wasatch #10 · Jul 29', type:'race', emoji:'🏅', detail: { type:'race', name:'Brighton', notes:'Wasatch #10 · workout run replacement' } },
     { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy' } },
-    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Sat', title:'Long Run', sub:'13 mi · trail · practice descent', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'13 mi · trail · practice descent sections' } },
+    { d:'Fri', title:'Gym A', sub:'Express glute med & ankle · 30 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Sat', title:'Long Run', sub:'12–13 mi · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'12–13 mi · trail' } },
     { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
   ]},
-  { phase: 'Phase 2 — Build', label: 'Build · Week of Jun 15', miles: '~21 mi', days: [
+  { phase: 'Build — Back to Full Training', label: 'Week of Aug 3 · Alta #2 Aug 5', miles: '~19 mi', days: [
     { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
-    { d:'Tue', title:'Gym A', sub:'Full · plyo progression · 40 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', title:'Easy Run', sub:'5–6 mi · Z1–Z2', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'5–6 mi · Z1–Z2' } },
-    { d:'Thu', title:'Tempo Run', sub:'2 × 12 min Z3 · 30–35 min total', type:'run', emoji:'🏃', detail: { type:'run', run:'tempo', phase:2 } },
-    { d:'Fri', title:'Gym B', sub:'Box jumps · landing drills · 40 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Sat', title:'Long Run', sub:'14 mi · trail · descent work', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'14 mi · trail · maximize descent practice' } },
-    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
-  ]},
-  { phase: 'Phase 2 — Build', label: 'Solitude · Jun 24', miles: '~20 mi', days: [
-    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
-    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', title:'Solitude', sub:'Wasatch #7 · Jun 24', type:'race', emoji:'🏅', detail: { type:'race', name:'Solitude', notes:'Wasatch #7 · workout run replacement' } },
+    { d:'Tue', title:'Gym B', sub:'Downhill strength & power · 45 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Wed', title:'Alta #2', sub:'Wasatch #11 · Aug 5', type:'race', emoji:'🏅', detail: { type:'race', name:'Alta #2', notes:'Wasatch #11 · workout run replacement' } },
     { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy' } },
-    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Fri', title:'Gym C', sub:'Posterior chain, adductors & arms · 45 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'C' } },
     { d:'Sat', title:'Long Run', sub:'13–14 mi · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'13–14 mi · trail' } },
     { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
   ]},
-  { phase: 'Phase 2 — Build', label: 'Alta · Jul 8', miles: '~20 mi', days: [
-    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
-    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', title:'Alta', sub:'Wasatch #8 · Jul 8 · high vert', type:'race', emoji:'🏅', detail: { type:'race', name:'Alta', notes:'Wasatch #8 · high vert · excellent Moab prep' } },
-    { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy · legs may be heavy from Alta', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy — Alta has big vert, take it easy' } },
-    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Sat', title:'Long Run', sub:'14–15 mi · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'14–15 mi · trail' } },
-    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
-  ]},
-  { phase: 'Phase 2 — Build', label: 'Snowbird · Jul 15', miles: '~19 mi', days: [
+  { phase: 'Build — Back to Full Training', label: 'Week of Aug 10 · reintroduce tempo', miles: '~22 mi', days: [
     { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
-    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', title:'Snowbird', sub:'Wasatch #9 · Jul 15 · back-to-back with Alta', type:'race', emoji:'🏅', detail: { type:'race', name:'Snowbird', notes:'Wasatch #9 · back-to-back with Alta week — keep effort controlled' } },
-    { d:'Thu', title:'Rest', sub:'Full rest · back-to-back race weeks', type:'rest', emoji:'😴', detail: null },
-    { d:'Fri', title:'Gym B', sub:'Light only · 30 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Sat', title:'Long Run', sub:'14 mi · pull back if fatigued', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'14 mi · pull back if two race weeks are showing' } },
-    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
-  ]},
-  { phase: 'Phase 2 — Build', label: 'Build · Week of Jul 20', miles: '~22 mi', days: [
-    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
-    { d:'Tue', title:'Gym A', sub:'Full · heavy eccentric · 40 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', title:'Easy Run', sub:'5–6 mi · Z1–Z2', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'5–6 mi · Z1–Z2' } },
-    { d:'Thu', title:'Workout Run', sub:'Intervals or downhill-specific · 55 min', type:'run', emoji:'🏃', detail: { type:'run', run:'interval', phase:2 } },
-    { d:'Fri', title:'Gym B', sub:'Power + plyos · 40 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Sat', title:'Long Run', sub:'15–16 mi · trail · vert', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'15–16 mi · trail · vert · descent work' } },
-    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
-  ]},
-  { phase: 'Phase 2 — Build', label: 'Brighton · Jul 29', miles: '~20 mi', days: [
-    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
-    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', title:'Brighton', sub:'Wasatch #10 · Jul 29', type:'race', emoji:'🏅', detail: { type:'race', name:'Brighton', notes:'Wasatch #10 · workout run replacement' } },
-    { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy' } },
-    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Sat', title:'Long Run', sub:'15 mi · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'15 mi · trail' } },
-    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
-  ]},
-  { phase: 'Phase 2 — Build', label: 'Alta #2 · Aug 5', miles: '~20 mi', days: [
-    { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
-    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', title:'Alta #2', sub:'Wasatch #11 · Aug 5', type:'race', emoji:'🏅', detail: { type:'race', name:'Alta #2', notes:'Wasatch #11 · workout run replacement' } },
-    { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy' } },
-    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Sat', title:'Long Run', sub:'15–16 mi · trail · peak Phase 2', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'15–16 mi · trail · peak Phase 2 long run' } },
-    { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
-  ]},
-  { phase: 'Phase 2 — Build', label: 'Final Build · Aug 10', miles: '~22 mi', days: [
-    { d:'Mon', title:'Yoga A', sub:'Runner\'s hip & lower body', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'A' } },
-    { d:'Tue', title:'Gym A', sub:'Full · strength peak · 40 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
+    { d:'Tue', title:'Gym A', sub:'Express glute med & ankle · 30 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
     { d:'Wed', title:'Easy Run', sub:'6 mi · Z1–Z2', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'6 mi · Z1–Z2' } },
-    { d:'Thu', title:'Workout Run', sub:'Downhill-focus + tempo · 45 min', type:'run', emoji:'🏃', detail: { type:'run', run:'tempo', phase:2 } },
-    { d:'Fri', title:'Gym B', sub:'Power + plyos · 40 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
-    { d:'Sat', title:'Long Run', sub:'16 mi · max descent practice', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'16 mi · trail · maximize descent practice' } },
+    { d:'Thu', title:'Tempo Run', sub:'2 × 12 min Z3 · 30–35 min total', type:'run', emoji:'🏃', detail: { type:'run', run:'tempo', phase:2 } },
+    { d:'Fri', title:'Gym B', sub:'Downhill strength & power · 45 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Sat', title:'Long Run', sub:'15 mi · trail · descent work', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'15 mi · trail · maximize descent practice' } },
     { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
   ]},
-  { phase: 'Phase 2 — Build', label: 'Snowbird #2 · Aug 19', miles: '~20 mi', days: [
+  { phase: 'Build — Back to Full Training', label: 'Week of Aug 17 · Snowbird #2 Aug 19', miles: '~20 mi · final Wasatch', days: [
     { d:'Mon', title:'Yoga B', sub:'Upper body & thoracic', type:'yoga', emoji:'🧘', detail: { type:'yoga', seq:'B' } },
-    { d:'Tue', title:'Gym A', sub:'Light · 30 min · pre-race', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
-    { d:'Wed', title:'Snowbird #2', sub:'Wasatch #12 · Aug 19 · final series race', type:'race', emoji:'🏅', detail: { type:'race', name:'Snowbird #2', notes:'Wasatch #12 · final series race · begin peak block transition' } },
+    { d:'Tue', title:'Gym C', sub:'Posterior chain, adductors & arms · 45 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'C' } },
+    { d:'Wed', title:'Snowbird #2', sub:'Wasatch #12 · Aug 19 · final series race', type:'race', emoji:'🏅', detail: { type:'race', name:'Snowbird #2', notes:'Wasatch #12 · final series race · peak block begins after' } },
     { d:'Thu', title:'Easy Run or Rest', sub:'3–4 mi easy · peak block starts soon', type:'run', emoji:'🏃', detail: { type:'run', run:'easy', phase:2, notes:'3–4 mi easy' } },
-    { d:'Fri', title:'Gym B', sub:'Moderate · 35 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'B' } },
+    { d:'Fri', title:'Gym A', sub:'Express glute med & ankle · 30 min', type:'gym', emoji:'💪', detail: { type:'gym', workout:'A' } },
     { d:'Sat', title:'Long Run', sub:'15 mi · trail', type:'run', emoji:'🏔', detail: { type:'run', run:'long', phase:2, notes:'15 mi · trail' } },
     { d:'Sun', title:'Rest', sub:'Full rest', type:'rest', emoji:'😴', detail: null },
   ]},
@@ -865,37 +767,32 @@ const WEEKS = [
 ];
 
 const GYM_A = {
-  title: 'Workout A — Glute Med, Core & Ankle',
-  focus: 'Lateral hip · adductors · lower core · ankle proprioception',
+  title: 'Workout A — Express Glute Med & Ankle',
+  focus: 'Lateral hip · core · ankle proprioception · 30 min',
+  duration: '30 min',
   blocks: [
     { label: 'Warmup — Circuit × 1 (no rest)', exercises: [
-      { name: 'Single-leg balance — eyes open → closed', note: '30s each · progress to eyes closed week 3+', sets: '30s each' },
-      { name: 'Banded clamshells', note: 'Mini band above knees · slow and controlled', sets: '15 each' },
+      { name: 'Single-leg balance — eyes open → closed', note: '20s each · progress to eyes closed week 3+', sets: '20s each' },
       { name: 'Ankle alphabet', note: 'Seated · draw A–Z with each foot', sets: '1× each' },
     ]},
-    { label: 'Block 1 — Hip Strength · Superset A · 3 rounds · rest 60s', exercises: [
+    { label: 'Block 1 — Hip Strength · Superset A · 3 rounds · rest 45s', exercises: [
       { name: 'Single-leg KB deadlift', note: 'Fist-grip KB at side · slow lower · drive through heel', sets: '8 each' },
-      { name: 'Lateral band walk + squat', note: '10 steps each way then 5 squats · band above knees', sets: '1 round' },
+      { name: 'Banded clamshells', note: 'Mini band above knees · slow and controlled', sets: '15 each' },
     ]},
-    { label: 'Block 2 — Adductors & Lateral Hip · Superset B · 3 rounds · rest 60s', exercises: [
-      { name: 'Cable hip abduction (standing)', note: 'Full ROM · controlled return · light–moderate load', sets: '12 each' },
-      { name: 'Copenhagen adductor hold', note: 'Side plank on elbow · top leg on bench · isometric', sets: '20–30s each' },
-    ]},
-    { label: 'Block 3 — Core & Shoulders · Superset C · 3 rounds · rest 60s', exercises: [
-      { name: 'Pallof press (cable)', note: 'Half-kneeling · anti-rotation · fist on handle', sets: '10 each' },
-      { name: 'Half-kneeling KB shoulder press', note: 'Neutral grip · one arm · tall spine', sets: '10 each' },
+    { label: 'Block 2 — Core & Ankle · Superset B · 3 rounds · rest 45s', exercises: [
+      { name: 'Cable hip abduction (standing)', note: 'Full ROM · controlled return · light–moderate load', sets: '10 each' },
       { name: 'Dead bug', note: 'Fists vertical · no wrist extension · opposite arm/leg', sets: '8 each' },
     ]},
-    { label: 'Ankle Finisher — Circuit × 2 (straight through)', exercises: [
-      { name: 'Single-leg calf raise — slow eccentric', note: 'Up on two · lower on one over 3–4 sec · add load Phase 2+', sets: '12 each' },
-      { name: 'Banded ankle eversion', note: 'Band around forefoot · resist inversion return · peroneals', sets: '15 each' },
+    { label: 'Finisher — Circuit × 1 (straight through)', exercises: [
+      { name: 'Single-leg calf raise — slow eccentric', note: 'Up on two · lower on one over 3–4 sec', sets: '10 each' },
     ]},
   ]
 };
 
 const GYM_B = {
   title: 'Workout B — Downhill, Power & Shoulders',
-  focus: 'Eccentric quads · plyos · single-leg landing · arms',
+  focus: 'Eccentric quads · plyos · single-leg landing · arms · 45 min',
+  duration: '45 min',
   blocks: [
     { label: 'Warmup — Circuit × 1 (no rest)', exercises: [
       { name: 'Hip CARs', note: 'Slow controlled circles each direction · standing', sets: '5 each way' },
@@ -903,7 +800,7 @@ const GYM_B = {
       { name: 'Slow bodyweight lateral step-down', note: 'Feel the quad load · control the descent', sets: '6 each' },
     ]},
     { label: 'Block 1 — Eccentric Quad & Downhill · Superset A · 4 rounds · rest 75s', exercises: [
-      { name: 'Slow eccentric step-down (3–5 sec lower)', note: 'Step onto box · lower slowly · add KB at hips Phase 2+', sets: '8 each' },
+      { name: 'Slow eccentric step-down (3–5 sec lower)', note: 'Step onto box · lower slowly · add KB at hips when ready', sets: '8 each' },
       { name: 'Lateral step-down with eccentric', note: 'Side of box · slow lower · mimics technical trail descent', sets: '8 each' },
     ]},
     { label: 'Block 2 — Single-Leg Power · Superset B · 3 rounds · rest 75s', exercises: [
@@ -916,8 +813,38 @@ const GYM_B = {
       { name: 'KB halo', note: 'Shoulder mobility + overhead stability', sets: '8 each way' },
     ]},
     { label: 'Ankle Finisher — Circuit × 3 (straight through)', exercises: [
-      { name: 'Single-leg balance on folded mat or BOSU', note: 'Unstable surface · progress to eyes closed Phase 2+', sets: '30s each' },
+      { name: 'Single-leg balance on folded mat or BOSU', note: 'Unstable surface · progress to eyes closed', sets: '30s each' },
       { name: 'Lateral hop — stick landing', note: 'Small lateral jump · land and hold 2 sec · no wobble', sets: '6 each' },
+    ]},
+  ]
+};
+
+const GYM_C = {
+  title: 'Workout C — Posterior Chain, Adductors & Arms',
+  focus: 'Hamstrings & glutes · adductors · pulling strength · 45 min',
+  duration: '45 min',
+  blocks: [
+    { label: 'Warmup — Circuit × 1 (no rest)', exercises: [
+      { name: 'Hip CARs', note: 'Slow controlled circles each direction · standing', sets: '5 each way' },
+      { name: 'Glute bridge march', note: 'Bridge up, alternate marching knees · controlled', sets: '10 each' },
+      { name: 'Banded lateral walk', note: 'Mini band above knees · 10 steps each way', sets: '2 lengths' },
+    ]},
+    { label: 'Block 1 — Posterior Chain · Superset A · 3 rounds · rest 75s', exercises: [
+      { name: 'Double KB Romanian deadlift', note: 'Neutral grip, hinge at hips, soft knees, drive hips forward', sets: '10 reps' },
+      { name: 'Side-lying hip abduction with band', note: 'Band around ankles · slow controlled lift', sets: '12 each' },
+    ]},
+    { label: 'Block 2 — Adductors · Superset B · 3 rounds · rest 75s', exercises: [
+      { name: 'Adductor squeeze bridge', note: 'Ball or KB between knees · squeeze through bridge', sets: '12 reps' },
+      { name: 'Standing cable adduction', note: 'Cable at ankle height · pull leg across body, controlled', sets: '12 each' },
+    ]},
+    { label: 'Block 3 — Arms & Pull · Superset C · 3 rounds · rest 60s', exercises: [
+      { name: 'KB neutral-grip bicep curl', note: 'Fist-grip handle, no wrist extension', sets: '10 each' },
+      { name: 'Cable face pull', note: 'Rope attachment, pull to face, elbows high', sets: '12' },
+      { name: 'Forearm plank shoulder taps', note: 'On forearms, alternate tapping opposite shoulder', sets: '10 each' },
+    ]},
+    { label: 'Finisher — Circuit × 1 (straight through)', exercises: [
+      { name: 'Wall sit with KB goblet hold', note: 'Back flat against wall, hold KB at chest', sets: '30s' },
+      { name: 'Standing calf raise', note: 'Slow and controlled, full range', sets: '15' },
     ]},
   ]
 };
@@ -951,15 +878,8 @@ const YOGA_B = {
 };
 
 const RACES = [
-  { date: 'Apr 22', day: 'Wed', name: 'Eagle Mountain', sub: 'Wasatch Trail Series #1', note: 'Controlled effort · workout run replacement', type: 'wasatch' },
-  { date: 'Apr 29', day: 'Wed', name: 'Dimple Dell', sub: 'Wasatch Trail Series #2', note: 'Workout run replacement', type: 'wasatch' },
-  { date: 'May 13', day: 'Wed', name: 'Soldier Hollow', sub: 'Wasatch Trail Series #3', note: 'Half is Saturday — keep this controlled!', type: 'wasatch' },
-  { date: 'May 16', day: 'Sat', name: 'Half Trail Marathon', sub: 'B Race · fitness benchmark', note: 'Race this one fully! 3 days after Soldier Hollow.', type: 'b' },
-  { date: 'May 20', day: 'Wed', name: 'Heber', sub: 'Wasatch Trail Series #4', note: '(Alt: if doing May 23 half, skip this)', type: 'wasatch' },
-  { date: 'Jun 3', day: 'Wed', name: 'Dimple Dell #2', sub: 'Wasatch Trail Series #5', note: 'First race back after half recovery', type: 'wasatch' },
-  { date: 'Jun 10', day: 'Wed', name: 'TBD', sub: 'Wasatch Trail Series #6', note: '', type: 'wasatch' },
-  { date: 'Jun 24', day: 'Wed', name: 'Solitude', sub: 'Wasatch Trail Series #7', note: '', type: 'wasatch' },
-  { date: 'Jul 8', day: 'Wed', name: 'Alta', sub: 'Wasatch Trail Series #8', note: 'High vert · excellent Moab prep', type: 'wasatch' },
+  { date: 'Apr–Jun', day: '', name: 'Wasatch #1–7 + Half Marathon', sub: 'Completed ✓', note: 'Eagle Mtn, Dimple Dell ×2, Soldier Hollow, Heber, TBD, Solitude + half marathon — all done', type: 'done' },
+  { date: 'Jul 8', day: 'Wed', name: 'Alta', sub: 'Wasatch Trail Series #8', note: 'High vert · excellent Moab prep · keep controlled during rebuild', type: 'wasatch' },
   { date: 'Jul 15', day: 'Wed', name: 'Snowbird', sub: 'Wasatch Trail Series #9', note: 'Back-to-back with Alta — keep controlled', type: 'wasatch' },
   { date: 'Jul 29', day: 'Wed', name: 'Brighton', sub: 'Wasatch Trail Series #10', note: '', type: 'wasatch' },
   { date: 'Aug 5', day: 'Wed', name: 'Alta #2', sub: 'Wasatch Trail Series #11', note: '', type: 'wasatch' },
@@ -1092,7 +1012,7 @@ function renderDayDetail(day, dayIdx, log) {
   const d = day.detail;
 
   if (d.type === 'gym') {
-    const gym = d.workout === 'A' ? GYM_A : GYM_B;
+    const gym = { A: GYM_A, B: GYM_B, C: GYM_C }[d.workout] || GYM_A;
     gym.blocks.forEach(block => {
       html += `<div class="gym-block-label">${block.label}</div>`;
       html += `<div style="padding:0 14px 8px"><div class="superset-block">`;
@@ -1224,12 +1144,13 @@ function renderRaces() {
   let html = '';
   RACES.forEach(r => {
     if (r.type !== lastType) {
-      const label = r.type === 'a' ? 'A Race' : r.type === 'b' ? 'B Race — Half Marathon' : 'Wasatch Trail Series (Wednesdays)';
+      const label = r.type === 'a' ? 'A Race' : r.type === 'b' ? 'B Race — Half Marathon' : r.type === 'done' ? 'Completed' : 'Wasatch Trail Series — Upcoming (Wednesdays)';
       html += `<div class="race-section-header">${label}</div>`;
       lastType = r.type;
     }
-    const dotColor = r.type === 'a' ? 'var(--coral)' : r.type === 'b' ? 'var(--amber)' : 'var(--teal)';
-    html += `<div class="race-item ${r.type === 'a' ? 'a-race' : r.type === 'b' ? 'b-race' : ''}">
+    const dotColor = r.type === 'a' ? 'var(--coral)' : r.type === 'b' ? 'var(--amber)' : r.type === 'done' ? 'var(--ink-light)' : 'var(--teal)';
+    const opacity = r.type === 'done' ? 'opacity:.6' : '';
+    html += `<div class="race-item ${r.type === 'a' ? 'a-race' : r.type === 'b' ? 'b-race' : ''}" style="${opacity}">
       <div class="race-dot-lg" style="background:${dotColor}"></div>
       <div class="race-date-col">
         <div class="race-date-main">${r.date}</div>
@@ -1250,14 +1171,17 @@ function renderRaces() {
 // ─────────────────────────────────────────────
 function renderGym() {
   const container = document.getElementById('gym-content');
-  [GYM_A, GYM_B].forEach((gym, gi) => {
+  [GYM_A, GYM_B, GYM_C].forEach((gym, gi) => {
     let html = `<div class="gym-card" id="gym-card-${gi}">
       <div class="gym-card-header" onclick="toggleGymCard(${gi})">
         <div>
           <div class="gym-card-title">${gym.title}</div>
           <div class="gym-card-sub">${gym.focus}</div>
         </div>
-        <span class="gym-chevron">▾</span>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <span class="badge badge-teal" style="margin:0">${gym.duration}</span>
+          <span class="gym-chevron">▾</span>
+        </div>
       </div>
       <div class="gym-card-body">`;
     gym.blocks.forEach(block => {
@@ -1274,9 +1198,9 @@ function renderGym() {
 
   // Phase progression note
   container.innerHTML += `<div class="info-card" style="margin-top:4px">
-    <h3>Phase Progressions</h3>
-    <p><strong>Phase 2:</strong> Add banded hip thrusts, depth jump variations, loaded lateral hops, heavier KB on step-downs.<br>
-    <strong>Phase 3:</strong> Maintain strength — reduce volume 20%, prioritize quality and freshness over load.</p>
+    <h3>How the rotation works</h3>
+    <p>Two gym days per week (Tue &amp; Fri), three workouts in rotation — each one shows up roughly every other week. The schedule tab already has it built in, but on a short week feel free to grab A (30 min) if time is tight.</p>
+    <div style="margin-top:8px"><span class="badge badge-teal">A · 30 min</span><span class="badge badge-coral">B · 45 min</span><span class="badge badge-purple">C · 45 min</span></div>
   </div>`;
 }
 
@@ -1358,17 +1282,17 @@ function renderRunning() {
 function renderOverview() {
   document.getElementById('overview-content').innerHTML = `
     <div class="info-card">
-      <h3>Phase 1 — Foundation</h3>
-      <p>Apr 6 – May 11 · Aerobic base, postpartum core reconnection, glute med, adductor and ankle stability. Wasatch races on Wednesdays start as controlled efforts. Long run builds to 11 mi into Soldier Hollow + Half Marathon.</p>
-      <div style="margin-top:8px"><span class="badge badge-teal">base building</span><span class="badge badge-purple">strength foundation</span><span class="badge badge-gray">ankle stability</span></div>
+      <h3>Rebuild — Returning to Structure</h3>
+      <p>Jun 29 – Jul 12 · Easy effort running to rebuild structured fitness — Wasatch races have kept the engine running, but no hard workouts or big long runs yet. Long run builds gently 8 → 9 mi. Gym rotates through all three workouts.</p>
+      <div style="margin-top:8px"><span class="badge badge-teal">easy effort</span><span class="badge badge-purple">gym rotation</span><span class="badge badge-gray">no hard workouts yet</span></div>
     </div>
     <div class="info-card">
-      <h3>Phase 2 — Build</h3>
-      <p>May 18 – Aug 19 · Post-half recovery, then every Wasatch Wednesday race slots in as the workout run replacement. Saturday long runs grow to 15–16 mi independently. Gym shifts to power and plyos.</p>
-      <div style="margin-top:8px"><span class="badge badge-teal">volume build</span><span class="badge badge-amber">race fitness</span><span class="badge badge-purple">power + plyos</span></div>
+      <h3>Build — Back to Full Training</h3>
+      <p>Jul 13 – Aug 19 · Hill workouts and tempo runs reintroduced gradually. Every Wasatch Wednesday race slots in as the workout run replacement. Saturday long runs grow to 15–16 mi. Gym continues rotating A/B/C.</p>
+      <div style="margin-top:8px"><span class="badge badge-teal">volume build</span><span class="badge badge-amber">race fitness</span><span class="badge badge-purple">gym rotation</span></div>
     </div>
     <div class="info-card">
-      <h3>Phase 3 — Peak & Taper</h3>
+      <h3>Phase 3 — Peak &amp; Taper</h3>
       <p>Aug 24 – November · No more Wasatch races. True peak block with long runs 18–22 mi. Race-specific downhill volume. Strength maintenance. 3-week Moab taper.</p>
       <div style="margin-top:8px"><span class="badge badge-coral">race specific</span><span class="badge badge-teal">peak volume</span><span class="badge badge-gray">taper</span></div>
     </div>
@@ -1376,12 +1300,21 @@ function renderOverview() {
       <h3>Weekly Template</h3>
       <p>
         <strong>Mon</strong> — Yoga (A/B alternating)<br>
-        <strong>Tue</strong> — Gym A or B<br>
+        <strong>Tue</strong> — Gym (A/B/C rotating)<br>
         <strong>Wed</strong> — Rest / easy run / Wasatch race<br>
         <strong>Thu</strong> — Workout run (or easy if Wed was a race)<br>
-        <strong>Fri</strong> — Gym A or B<br>
+        <strong>Fri</strong> — Gym (A/B/C rotating)<br>
         <strong>Sat</strong> — Long run (every week)<br>
         <strong>Sun</strong> — Rest
+      </p>
+    </div>
+    <div class="info-card">
+      <h3>Gym Rotation</h3>
+      <p>
+        <strong>A — Express (30 min):</strong> glute med, core, ankle<br>
+        <strong>B — Downhill (45 min):</strong> eccentric quads, plyos, shoulders<br>
+        <strong>C — Posterior Chain (45 min):</strong> hamstrings, glutes, adductors, arms<br><br>
+        Each shows up roughly every other gym day — see the Gym tab for full detail.
       </p>
     </div>
     <div class="info-card">
