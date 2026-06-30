@@ -932,7 +932,13 @@ function isToday(weekIdx, dayIdx) {
 }
 
 function logKey(weekIdx, dayIdx) {
-  return `w${weekIdx}-d${dayIdx}`;
+  // Date-based key (not position-based) so editing the schedule later
+  // never causes old completions to bleed onto different days.
+  const d = getDayDate(weekIdx, dayIdx);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
 }
 
 // ─────────────────────────────────────────────
